@@ -1,0 +1,29 @@
+.time-form-wrapper {
+    background-color: rgb(148, 214, 214);
+    position: absolute;
+    top: 2rem;
+    left: 30%;
+    padding: 30px;
+    text-align: center;
+}
+.time-form-wrapper > h4 {
+    font-size: 20px;
+    background-color: #fff;
+    margin: 0;
+}
+.day {
+    border-bottom: 1px solid grey;
+    font-size: 24px;
+}
+.tracking-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.tracking-form input,
+select,
+option,
+button {
+    font-size: 14px;
+}

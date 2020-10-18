@@ -1,0 +1,43 @@
+.reg-login {
+    border-radius: 0 3px 3px 0;
+    background-color: #f0f4fd;
+    padding: 80px;
+    padding-bottom: 50px;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+/* .reg-login h1 {
+    font-family: "Poppins", sans-serif;
+    font-family: "DM Sans", sans-serif;
+    color: #4b54e1;
+    font-size: 30px;
+    letter-spacing: 1px;
+    font-weight: 700;
+} */
+.reg-login p {
+    /* font-family: "Poppins", sans-serif; */
+    font-size: 12px;
+}
+.reg-login h1 {
+    font-family: "Poppins", sans-serif;
+    font-family: "DM Sans", sans-serif;
+    letter-spacing: -1px;
+    color: #4b54e1;
+    font-weight: 700;
+    font-size: 30px;
+    text-align: center;
+    background-color: red;
+    background-color: #e5e8f0;
+}
+.form {
+    max-height: 80px;
+}
+
+.login-link,
+.login-link > a {
+    font-size: 14px;
+    font-family: "DM Sans", sans-serif;
+    justify-self: flex-end;
+}

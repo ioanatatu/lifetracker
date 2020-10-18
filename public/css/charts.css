@@ -1,0 +1,22 @@
+.sleep {
+    width: 100%;
+    height: 100%;
+    /* background-color: PaleVioletRed; */
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+.bar-don-wrapper {
+    /* background-color: #66cdaa; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.chart {
+    /* width: 720px; */
+}
+.bar {
+    /* width: 720px; */
+}
+.doughnut {
+    /* width: 500px; */
+}
