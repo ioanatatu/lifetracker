@@ -1,8 +1,7 @@
 .time-form-wrapper {
     background-color: rgb(148, 214, 214);
     position: absolute;
-    top: 2rem;
-    left: 30%;
+    bottom: 170px;
     padding: 30px;
     text-align: center;
 }
@@ -26,4 +25,7 @@ select,
 option,
 button {
     font-size: 14px;
+}
+.message {
+    font-size: 13;
 }

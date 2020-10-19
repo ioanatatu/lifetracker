@@ -36,8 +36,46 @@ module.exports.updatePassword = (email, pass) => {
  *
  * ___________________________________________________________________activities
  */
-module.exports.addProfile = (age, city, imgurl, user_id) => {
-    const q = `INSERT into user_profile (age, city, imgurl, user_id) VALUES ($1, $2, $3, $4);`;
-    const params = [age, city, imgurl, user_id];
+module.exports.insertActivity = (
+    user_fk,
+    activity,
+    begin_date,
+    end_date,
+    activity_type,
+    difficulty,
+    notes
+) => {
+    const params = [
+        user_fk,
+        activity,
+        begin_date,
+        end_date,
+        activity_type,
+        difficulty,
+        notes,
+    ];
+    console.log("_from db", params);
+
+    const q = `INSERT INTO activities (user_fk, activity, begin_date, end_date, activity_type, difficulty, notes) VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+
     return db.query(q, params);
 };
+
+/* 
+
+id SERIAL PRIMARY KEY,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+user_fk INT REFERENCES users(id) NOT NULL,
+activity VARCHAR (255) NOT NULL,
+begin_date TIMESTAMP DEFAULT NULL,
+end_date TIMESTAMP DEFAULT NULL,
+activity_type VARCHAR (255) DEFAULT NULL,
+difficulty INT DEFAULT NULL,
+notes TEXT DEFAULT NULL
+
+
+
+INSERT INTO activities (user_fk, activity, begin_date, end_date, activity_type, difficulty, notes) VALUES (6, 'sleep', '2020-10-18 23:40:00', '2020-10-18 08:00:00', 2, 2, 'I dreamt about code...'); 
+
+
+*/

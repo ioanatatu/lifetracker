@@ -1,7 +1,7 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 
-function LineChart() {
+function LineChart({ begin, end }) {
     const data = {
         labels: [
             "monday",
@@ -13,15 +13,41 @@ function LineChart() {
         ],
         datasets: [
             {
-                label: "I met the pajarito",
-                data: [3, 2, 3, 2, 1],
-                backgroundColor: "SteelBlue",
+                label: "wake up time",
+                data: begin,
+                backgroundColor: "rgba(0,0,0,0)",
                 pointBackgroudColor: ["LightSalmon"],
-                pointPorderColor: "hotpink",
+                pointBorderColor: "PowderBlue",
+                borderColor: "red",
+            },
+            {
+                label: "going to sleep time",
+                data: end,
+                backgroundColor: "rgba(0,0,0,0)",
+                pointBackgroudColor: ["LightSalmon"],
+                pointBorderColor: "hotpink",
+                borderColor: "SkyBlue",
             },
         ],
     };
-    return <Line data={data} />;
+    const options = {
+        title: {
+            display: true,
+            text: "Amount of sleeping hours per week",
+        },
+        scales: {
+            yAxes: [
+                {
+                    ticks: { min: 0, max: 24, stepSize: 1 },
+                    gridLines: {
+                        display: true,
+                        drawBorder: false,
+                    },
+                },
+            ],
+        },
+    };
+    return <Line data={data} options={options} />;
 }
 
 export default LineChart;

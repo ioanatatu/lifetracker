@@ -4,7 +4,7 @@ import { Bar } from "react-chartjs-2";
 Chart.defaults.global.defaultFontFamily = "'Courier', sans-serif";
 // Chart.defaults.global.elements.line.tension = 0; // this one removes smoothness from lines
 
-function BarChart() {
+function BarChart({ duration }) {
     const data = {
         labels: [
             "monday",
@@ -17,7 +17,7 @@ function BarChart() {
         datasets: [
             {
                 label: "sleeping hours",
-                data: [8, 2, 6, 7, 9, 6, 7],
+                data: duration,
                 // backgroundColor: "pink",
                 backgroundColor: [
                     "pink",

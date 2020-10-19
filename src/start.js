@@ -10,21 +10,21 @@ import App from "./App/App";
  *
  * Redux boilerplate stuff
  */
-// import { createStore, applyMiddleware } from "redux";
-// import { Provider } from "react-redux";
-// import reduxPromise from "redux-promise";
-// import reducer from "./Redux/reducer";
-// import { composeWithDevTools } from "redux-devtools-extension";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import reduxPromise from "redux-promise";
+import reducer from "./Redux/reducer";
+import { composeWithDevTools } from "redux-devtools-extension";
 // import { init } from "./socket";
 
-// const store = createStore(
-//     reducer,
-//     composeWithDevTools(applyMiddleware(reduxPromise))
-// );
+const store = createStore(
+    reducer,
+    composeWithDevTools(applyMiddleware(reduxPromise))
+);
 
-// store.subscribe(() => {
-//     console.log("Redux store is now: ", store.getState());
-// });
+store.subscribe(() => {
+    console.log("Redux store is now: ", store.getState());
+});
 /*
  *
  * render App OR Welcome based on url
@@ -48,8 +48,9 @@ ReactDOM.render(
  */
 function renderIfUserIsLoggedIn() {
     // init(store);
-    return <App className="dark-mode" />;
+    return (
+        <Provider store={store}>
+            <App />;
+        </Provider>
+    );
 }
-// redux stuff to add later
-// <Provider store={store}>
-//     </Provider>

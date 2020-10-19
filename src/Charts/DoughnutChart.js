@@ -1,7 +1,7 @@
 import React from "react";
 import Chart from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-Chart.defaults.global.defaultFontFamily = "'Courier', sans-serif";
+Chart.defaults.global.defaultFontFamily = "DM Sans";
 
 function DoughnutChart() {
     const data = {

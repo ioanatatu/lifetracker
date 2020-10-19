@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "../helpers/axios";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 /*
  *
  * components
  */
-import Sleep from "./Sleep";
+import ChartsComponent from "./ChartsComponent";
 import TrackingForm from "../Components/TrackingForm";
+import ActivitiesMenu from "./ActivitiesMenu";
 
 export default function App() {
+    const [isVisible, setIsVisible] = useState(true);
+    const [activity, setActivity] = useState("");
+    const trackingFormIsVisible = {
+        sleep: true,
+        fast: false,
+        exercise: false,
+        events: false,
+    };
+    let menuActivity = useRef();
+
     const logout = () => {
         axios
             .get("/logout")
@@ -18,46 +29,65 @@ export default function App() {
             })
             .catch((error) => console.log(error));
     };
+    const handleClickOutside = (e) => {
+        // console.log(trackingForm);
+        Object.keys(trackingFormIsVisible).map((key) => {
+            if (key != e.target.textContent.toLowerCase()) {
+                trackingFormIsVisible[key] = false;
+                setIsVisible(false);
+                console.log(e.target.textContent);
+            }
+        });
+    };
+
+    const toggleTrackingForm = (e) => {
+        const activity = e.target.textContent.toLowerCase();
+
+        Object.keys(trackingFormIsVisible).map((key) => {
+            if (key == activity) {
+                // trackingFormIsVisible[key] = true;
+            } else {
+                // trackingFormIsVisible[key] = false;
+            }
+        });
+
+        setIsVisible(!isVisible);
+        setActivity(activity);
+
+        // console.log(menuActivity.current.innerText);
+    };
 
     return (
         <Router>
-            <div id="container">
-                <TrackingForm></TrackingForm>
+            <div id="container" onClick={handleClickOutside}>
+                {isVisible && (
+                    <TrackingForm
+                        isVisible={isVisible}
+                        activity={activity}
+                    ></TrackingForm>
+                )}
                 <aside className="menu">
-                    <p className="menu__user-name">
-                        welcome
-                        <br />
-                        back,
-                        <br /> ioana
-                    </p>
+                    <div className="menu-top">
+                        <p className="menu__user-name">
+                            welcome
+                            <br />
+                            back,
+                            <br /> ioana
+                        </p>
 
-                    <div className="logo">
-                        MyLifetracker<span>_</span>
+                        <div className="logo">
+                            MyLifetracker<span>_</span>
+                        </div>
                     </div>
+                    <div className="menu-bottom">
+                        <ActivitiesMenu></ActivitiesMenu>
 
-                    <ul className="categories">
-                        <li>
-                            <Link to={`/sleep`}>Sleep</Link>
-                        </li>
-                        <li>
-                            <Link to={`/sleep`}>Fast</Link>
-                        </li>
-                        <li>
-                            <Link to={`/sleep`}>Exercise</Link>
-                        </li>
-                        <li>
-                            <Link to={`/sleep`}>Events</Link>
-                        </li>
-                    </ul>
-                    <div className="new-category">
-                        <ion-icon name="add-outline">Add category</ion-icon>
+                        <ul className="network">
+                            <li>Friends</li>
+                            <li>Doctors</li>
+                            <li>Trainers</li>
+                        </ul>
                     </div>
-
-                    <ul className="network">
-                        <li>Friends</li>
-                        <li>Doctors</li>
-                        <li>Trainers</li>
-                    </ul>
                 </aside>
 
                 <section className="main">
@@ -73,7 +103,11 @@ export default function App() {
                     </div>
 
                     <div className="charts-area">
-                        <Route exact path="/sleep" component={Sleep}></Route>
+                        <Route
+                            exact
+                            path="/sleep"
+                            component={ChartsComponent}
+                        ></Route>
                     </div>
 
                     <div className="stats"></div>

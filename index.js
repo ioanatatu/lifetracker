@@ -49,6 +49,33 @@ checkIfInProductionMode();
  *
  * routing
  */
+// ------------------------------------------------------- ACTIVITIES
+app.post("/api/add-activity", async (req, res) => {
+    console.log(req.body, req.session.userId);
+
+    const { date, begin_time, end_time, notes } = req.body;
+    let dreams = req.body.dreams != "" ? req.body.dreams : null;
+    let quality = req.body.quality != "" ? req.body.quality : null;
+
+    let begin_date = begin_time != "" ? `${date} ${begin_time}:00` : null;
+    let end_date = end_time != "" ? `${date} ${end_time}:00` : null;
+
+    try {
+        const { rows } = await db.insertActivity(
+            req.session.userId,
+            "sleep",
+            begin_date,
+            end_date,
+            dreams,
+            quality,
+            notes
+        );
+        res.json({ data: rows });
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false });
+    }
+});
 // ------------------------------------------------------- REGISTER - LOGIN - LOGOUT
 app.post("/register", (req, res) => {
     const { first, last, email, password } = req.body;

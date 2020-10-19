@@ -1,0 +1,69 @@
+.activities-menu-and-button {
+    /* background-color: rgb(123, 176, 123); */
+    min-height: 300px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.categories {
+    overflow-y: scroll;
+    padding: 0 5px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    /* background-color: pink; */
+}
+
+.categories li {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: rgb(62, 62, 62);
+    transition: background-color 0.3s;
+}
+.categories li:hover {
+    /* background-color: #9eddf1; */
+    transition: background-color 0.3s;
+}
+.categories a {
+    font-size: 16px;
+}
+div.new-category {
+    width: 100%;
+    height: 70px;
+    /* background-color: rgb(186, 130, 130); */
+    margin: 0;
+    position: relative;
+}
+::-webkit-scrollbar {
+    width: 7px;
+}
+::-webkit-scrollbar-track {
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(127, 188, 198, 0.7);
+}
+.add-cat {
+    cursor: pointer;
+    transition: color 0.3s;
+    height: auto;
+}
+.add-cat:hover {
+    color: rgb(148, 214, 214);
+    transition: color 0.3s;
+}
+.custom-input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    position: absolute;
+}

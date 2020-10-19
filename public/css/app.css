@@ -8,7 +8,6 @@
 }
 .menu {
     background-color: white;
-    padding-top: 20px;
     width: 160px;
     height: 100vh;
     text-align: center;
@@ -17,19 +16,27 @@
     align-items: center;
     justify-content: space-between;
     box-shadow: 0px 1px 13px #ccdcdc;
+    position: relative;
+    z-index: 2;
+}
+.menu-top,
+.menu-bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .menu__user-name {
+    padding-top: 28px;
     font-size: 13px;
-    /* font-weight: 700; */
     color: rgb(137, 137, 137);
-    margin-bottom: 110px;
-    /* font-family: "Cousine", monospace; */
+    margin-bottom: 100px;
     text-align: left;
     line-height: 13px;
 }
 .logo {
     transform: rotate(-90deg);
-    font-size: 24px;
+    font-size: 23px;
     font-family: "DM Sans", sans-serif;
     font-family: "Poppins", sans-serif;
     font-weight: 700;
@@ -38,45 +45,8 @@
 .logo > span {
     color: #011eff;
     color: #4dc8f1;
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 700;
-}
-.categories {
-    margin-top: 130px;
-    /* background-color: green; */
-    /* height: 300px; */
-    overflow-y: scroll;
-    padding: 0 5px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-::-webkit-scrollbar {
-    width: 7px;
-}
-::-webkit-scrollbar-track {
-    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
-    border-radius: 10px;
-}
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(127, 188, 198, 0.7);
-}
-.categories li {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: rgb(62, 62, 62);
-    width: 80%;
-    transition: background-color 0.4s;
-}
-.categories li:hover {
-    background-color: #9eddf1;
-    transition: background-color 0.4s;
-}
-.categories a {
-    font-size: 16px;
 }
 .network {
     background-color: #f0f0f3;
@@ -94,6 +64,9 @@
 }
 .new-category {
     margin: 10px 0;
+}
+.new-category ion-icon {
+    font-size: 40px;
 }
 .main {
     width: 100%;
@@ -128,10 +101,4 @@
     background-color: #181f3b;
     width: 100%;
     height: 170px;
-}
-.charts-area {
-    max-width: calc(100vw - 160px);
-    max-height: calc(100vh - 210px);
-    padding: 40px;
-    padding-right: 70px;
 }
