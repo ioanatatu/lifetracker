@@ -53,7 +53,7 @@ checkIfInProductionMode();
 app.post("/api/add-activity", async (req, res) => {
     console.log(req.body, req.session.userId);
 
-    const { date, begin_time, end_time, notes } = req.body;
+    const { activity, date, begin_time, end_time, notes } = req.body;
     let dreams = req.body.dreams != "" ? req.body.dreams : null;
     let quality = req.body.quality != "" ? req.body.quality : null;
 
@@ -63,7 +63,7 @@ app.post("/api/add-activity", async (req, res) => {
     try {
         const { rows } = await db.insertActivity(
             req.session.userId,
-            "sleep",
+            activity,
             begin_date,
             end_date,
             dreams,

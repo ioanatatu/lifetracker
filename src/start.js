@@ -29,7 +29,7 @@ store.subscribe(() => {
  *
  * render App OR Welcome based on url
  */
-console.log(location.pathname != "/welcome");
+// console.log(location.pathname != "/welcome");
 const userIsLoggedIn = location.pathname != "/welcome";
 /*
  *

@@ -2,8 +2,25 @@
     background-color: rgb(148, 214, 214);
     position: absolute;
     bottom: 170px;
-    padding: 30px;
+    padding: 40px;
     text-align: center;
+    min-height: calc(100vh - 170px);
+    right: 0;
+}
+.activity-name {
+    font-weight: bolder;
+    margin: 20px 0;
+    font-size: 30px;
+    height: 40px;
+    background-color: #fff;
+}
+.question {
+    font-size: 24px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    margin-top: 20px;
+    width: 160px;
+    line-height: 24px;
 }
 .time-form-wrapper > h4 {
     font-size: 20px;
@@ -11,7 +28,7 @@
     margin: 0;
 }
 .day {
-    border-bottom: 1px solid grey;
+    /* border-bottom: 1px solid grey; */
     font-size: 24px;
 }
 .tracking-form {
@@ -26,6 +43,14 @@ option,
 button {
     font-size: 14px;
 }
+.tracking-form input,
+select,
+button {
+    margin: 5px;
+}
 .message {
     font-size: 13;
+}
+.placeholder {
+    color: grey;
 }

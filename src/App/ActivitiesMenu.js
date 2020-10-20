@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
-import { addActivity } from "../Redux/actions";
+import { addActivity, changeCurrentActivity } from "../Redux/actions";
 
-export default function ActivitiesMenu({ toggleTrackingForm }) {
+export default function ActivitiesMenu() {
     const dispatch = useDispatch();
 
-    const [newActivityIsOpen, setNewActivityIsOpen] = useState(true);
+    const [newActivityIsOpen, setNewActivityIsOpen] = useState(false);
     const [userInput, setUserInput] = useState("");
 
     const activities = useSelector((state) => state && state.activities);
@@ -30,7 +30,7 @@ export default function ActivitiesMenu({ toggleTrackingForm }) {
     return (
         <div className="activities-menu-and-button">
             <ul className="categories">
-                {mapStateArrayToHtml(activities, toggleTrackingForm)}
+                {mapStateArrayToHtml(activities, changeCurrentActivity)}
             </ul>
 
             <div className="new-category">
@@ -51,7 +51,6 @@ export default function ActivitiesMenu({ toggleTrackingForm }) {
                             className="custom-input"
                             name="new-activity"
                             placeholder="add new activity..."
-                            // ref={register}
                             autoComplete="off"
                             onChange={(e) => {
                                 handleInputChange(e);
@@ -64,15 +63,17 @@ export default function ActivitiesMenu({ toggleTrackingForm }) {
     );
 }
 
-function mapStateArrayToHtml(array, toggleTrackingForm) {
-    // const dispatch = useDispatch();
+function mapStateArrayToHtml(array, changeCurrentActivity) {
+    const dispatch = useDispatch();
     if (array) {
         return array.map((activity, index) => {
             console.log("activity in ActivitiesMenu ", activity);
             return (
                 <li
-                    onClick={(e) => toggleTrackingForm(e)}
                     key={index.toString()}
+                    onClick={() =>
+                        dispatch(changeCurrentActivity(activity.name))
+                    }
                 >
                     <Link to={`/${activity.name}`}>{activity.name}</Link>
                 </li>

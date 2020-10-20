@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "../helpers/axios";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { changeCurrentActivity } from "../Redux/actions";
+
 /*
  *
  * components
@@ -10,6 +13,8 @@ import TrackingForm from "../Components/TrackingForm";
 import ActivitiesMenu from "./ActivitiesMenu";
 
 export default function App() {
+    const dispatch = useDispatch();
+
     const [isVisible, setIsVisible] = useState(true);
     const [activity, setActivity] = useState("");
     const trackingFormIsVisible = {
@@ -18,7 +23,15 @@ export default function App() {
         exercise: false,
         events: false,
     };
-    let menuActivity = useRef();
+
+    let currentActivity = useSelector(
+        (state) => state && state.currentActivity
+    );
+
+    useEffect(() => {
+        currentActivity = null;
+    }, []);
+    console.log("currentActivity from App ", currentActivity);
 
     const logout = () => {
         axios
@@ -32,10 +45,11 @@ export default function App() {
     const handleClickOutside = (e) => {
         // console.log(trackingForm);
         Object.keys(trackingFormIsVisible).map((key) => {
-            if (key != e.target.textContent.toLowerCase()) {
+            if (key == e.target.textContent.toLowerCase()) {
                 trackingFormIsVisible[key] = false;
-                setIsVisible(false);
                 console.log(e.target.textContent);
+                setActivity(e.target.textContent);
+                console.log("activity from handle click outside", activity);
             }
         });
     };
@@ -53,19 +67,11 @@ export default function App() {
 
         setIsVisible(!isVisible);
         setActivity(activity);
-
-        // console.log(menuActivity.current.innerText);
     };
 
     return (
         <Router>
             <div id="container" onClick={handleClickOutside}>
-                {isVisible && (
-                    <TrackingForm
-                        isVisible={isVisible}
-                        activity={activity}
-                    ></TrackingForm>
-                )}
                 <aside className="menu">
                     <div className="menu-top">
                         <p className="menu__user-name">
@@ -75,9 +81,17 @@ export default function App() {
                             <br /> ioana
                         </p>
 
-                        <div className="logo">
-                            MyLifetracker<span>_</span>
-                        </div>
+                        <Link to={"/"}>
+                            <div
+                                className="logo"
+                                onClick={() => {
+                                    currentActivity = null;
+                                    dispatch(changeCurrentActivity(null));
+                                }}
+                            >
+                                MyLifetracker<span>_</span>
+                            </div>
+                        </Link>
                     </div>
                     <div className="menu-bottom">
                         <ActivitiesMenu></ActivitiesMenu>
@@ -103,10 +117,27 @@ export default function App() {
                     </div>
 
                     <div className="charts-area">
+                        {isVisible && (
+                            <TrackingForm
+                                isVisible={isVisible}
+                                activity={currentActivity}
+                            ></TrackingForm>
+                        )}
+                        {currentActivity && (
+                            <Route
+                                exact
+                                path={`/${currentActivity}`}
+                                render={() => (
+                                    <ChartsComponent
+                                        currentActivity={currentActivity}
+                                    />
+                                )}
+                            ></Route>
+                        )}
                         <Route
                             exact
-                            path="/sleep"
-                            component={ChartsComponent}
+                            path="/"
+                            render={() => <ChartsComponent activity={null} />}
                         ></Route>
                     </div>
 

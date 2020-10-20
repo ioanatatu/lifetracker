@@ -1,28 +1,35 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
 
 import axios from "../helpers/axios";
 
 const TrackingForm = ({ isVisible, activity }) => {
     let dbResult = false; // hardcoded to test defaultValue in the input field
-    const { register, handleSubmit, errors } = useForm();
+
     const [style, setStyle] = useState({
-        transform: "translateX(0)",
+        transform: "translateX(200px)",
         transition: "transform .5s",
     });
+    const color = {
+        color: "grey",
+    };
 
-    const trackingForm = useRef();
+    const { register, handleSubmit, errors } = useForm();
+
+    const currentActivity = useSelector(
+        (state) => state && state.currentActivity
+    );
 
     getDefaultTime();
 
     useEffect(() => {
         setStyle({
-            transform: "translateX(160px)",
+            transform: "translateX(0px)",
             transition: "transform .5s",
         });
         // axios request to get data for TODAY
         // populate the input fields with default values or entry from db
-        console.log(trackingForm);
         return () => {
             setStyle({
                 transform: "translateX(0)",
@@ -32,24 +39,38 @@ const TrackingForm = ({ isVisible, activity }) => {
     }, []);
 
     const onSubmit = async function (inputData) {
-        console.log(inputData);
+        inputData.activity = currentActivity;
 
-        try {
-            const { data } = await axios.post("/api/add-activity", inputData);
-            if (data.success) location.replace("/");
-        } catch (error) {
-            console.log(error);
+        if (inputData.activity) {
+            // if I don't choose an activity, inputData.activity == undefined
+            try {
+                const { data } = await axios.post(
+                    "/api/add-activity",
+                    inputData
+                );
+                if (data.success) location.replace("/");
+            } catch (error) {
+                console.log(error);
+            }
         }
     };
 
     return (
-        <div className="time-form-wrapper" style={style} ref={trackingForm}>
-            <h4>{activity}</h4>
-            <div className="day">Today</div>
+        <div className="time-form-wrapper" style={style}>
+            <div className="question">What do you want to track today?</div>
+            <div
+                className={
+                    currentActivity
+                        ? "activity-name"
+                        : "activity-name placeholder"
+                }
+            >
+                {currentActivity ? currentActivity : "..."}
+            </div>
+            <div className="day">{getToday()}</div>
             {dbResult && (
                 <p className="message">you have no entries for today</p>
             )}
-
             <form onSubmit={handleSubmit(onSubmit)} className="tracking-form">
                 <input
                     type="date"
@@ -119,13 +140,24 @@ const getDefaultTime = () => {
     let hour = now.getHours();
     let mins = now.getMinutes();
 
-    console.log(hour, mins);
-
     return `${hour}:${mins}`;
 };
-// {
-//                 transform: x.interpolate(
-//                     (x) => `translateX(${x * -1}%)`
-//                 ),
-//             }
-// style={{ left: x.interpolate((x) => `${x}px)`) }}
+const getToday = () => {
+    var now = new Date();
+    switch (now.getDay()) {
+        case 0:
+            return "Sunday";
+        case 1:
+            return "Monday";
+        case 2:
+            return "Tuesday";
+        case 3:
+            return "Wednesday";
+        case 4:
+            return "Thursday";
+        case 5:
+            return "Friday";
+        case 6:
+            return "Saturday";
+    }
+};

@@ -1,3 +1,6 @@
+.activity-container {
+    width: 70vw;
+}
 .charts-area {
     max-width: calc(100vw - 160px);
     height: calc(100vh - 210px);
@@ -11,6 +14,7 @@
 }
 .nav-buttons li {
     background-color: rgb(148, 214, 214);
+    background-color: rgb(154, 177, 177);
     margin: 0 20px;
     padding: 2px 15px;
 }

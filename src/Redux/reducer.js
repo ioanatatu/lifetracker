@@ -21,6 +21,10 @@ export default function reducer(state = { activities: activities }, action) {
                 ...state,
                 activities: [...state.activities, action.newActivity],
             };
+        case "CHANGE_CURRENT_ACTIVITY":
+            state = Object.assign({}, state, {
+                currentActivity: action.currentActivity,
+            });
     }
     return state;
 }
