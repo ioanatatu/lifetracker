@@ -27,7 +27,7 @@
     align-items: center;
 }
 .menu__user-name {
-    padding-top: 28px;
+    padding-top: 30px;
     font-size: 13px;
     color: rgb(137, 137, 137);
     margin-bottom: 100px;
@@ -77,8 +77,9 @@
 }
 .top-bar {
     display: flex;
+    justify-content: flex-end;
     padding-top: 28px;
-    padding-left: 55px;
+    padding-right: 270px;
     /* background-color: pink; */
     width: 100%;
     /* text-transform: uppercase; */

@@ -70,7 +70,28 @@ app.post("/api/add-activity", async (req, res) => {
             quality,
             notes
         );
-        res.json({ data: rows });
+        console.log("üüüüüüüü", rows);
+        res.json(rows[0]);
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false });
+    }
+});
+
+app.get("/api/activity-data", async (req, res) => {
+    console.log("----req.query ", req.query);
+    const { activity, begin, end, interval } = req.query;
+    // when there is no match it returns an empty array []
+    try {
+        const { rows } = await db.getActivityData(
+            activity,
+            req.session.userId,
+            begin,
+            end,
+            interval
+        );
+        console.log(rows);
+        res.json({ activityData: rows });
     } catch (error) {
         console.log(error);
         res.json({ success: false });

@@ -1,16 +1,9 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 
-function LineChart({ begin, end, color }) {
+function LineChart({ labels, begin, end, color }) {
     const data = {
-        labels: [
-            "monday",
-            "tuesday",
-            "thursday",
-            "friday",
-            "saturday",
-            "sunday",
-        ],
+        labels: labels,
         datasets: [
             {
                 label: "wake up time",

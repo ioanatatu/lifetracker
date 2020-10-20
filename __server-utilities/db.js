@@ -56,9 +56,29 @@ module.exports.insertActivity = (
     ];
     console.log("_from db", params);
 
-    const q = `INSERT INTO activities (user_fk, activity, begin_date, end_date, activity_type, difficulty, notes) VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+    const q = `INSERT INTO activities (user_fk, activity, begin_date, end_date, activity_type, difficulty, notes) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, created_at, user_fk, activity, begin_date, end_date, activity_type, difficulty, notes;`;
 
     return db.query(q, params);
+};
+module.exports.getActivityData = (activity, user_fk, begin, end, interval) => {
+    let q = "";
+    let params = [];
+    if (interval == "currentWeek") {
+        params = [activity, user_fk];
+        q = `SELECT * FROM activities WHERE activity=$1 AND user_fk=$2 AND begin_date::text>='2020-10-19' AND begin_date::text<'2020-10-26' ORDER BY begin_date ASC;`;
+    }
+    if (interval == "lastWeek") {
+        params = [activity, user_fk];
+        q = `SELECT * FROM activities WHERE activity=$1 AND user_fk=$2 AND begin_date::text>='2020-10-12' AND begin_date::text<'2020-10-19' ORDER BY begin_date ASC;`;
+    }
+    // if (interval == "month") {}
+    if (interval == "custom") {
+        params = [activity, user_fk, begin, end];
+        q = `SELECT * FROM activities WHERE activity=$1 AND user_fk=$2 AND begin_date::text>=$3 AND begin_date<=$4;`;
+    }
+
+    return db.query(q, params);
+    // const q = `SELECT * FROM activities where user_fk=$2 and activity=$1;`;
 };
 
 /* 

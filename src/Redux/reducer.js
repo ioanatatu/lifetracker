@@ -25,6 +25,19 @@ export default function reducer(state = { activities: activities }, action) {
             state = Object.assign({}, state, {
                 currentActivity: action.currentActivity,
             });
+            break;
+        case "GET_ACTIVITY_DATA":
+            state = Object.assign({}, state, {
+                activityData: action.activityData,
+            });
+            break;
+        case "NEW_ACTIVITY_ENTRY":
+            console.log("####___## from REDUCER ", action.activity);
+
+            state = Object.assign({}, state, {
+                activityData: [...state.activityData, action.activity],
+            });
+            break;
     }
     return state;
 }

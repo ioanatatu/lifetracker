@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
+import { newActivityEntry } from "../Redux/actions";
 
 import axios from "../helpers/axios";
 
-const TrackingForm = ({ isVisible, activity }) => {
+const TrackingForm = () => {
+    const dispatch = useDispatch();
     let dbResult = false; // hardcoded to test defaultValue in the input field
+    const activityData = useSelector((state) => state && state.activityData);
+    console.log("activityData from TrackingForm", activityData);
 
     const [style, setStyle] = useState({
         transform: "translateX(200px)",
         transition: "transform .5s",
     });
-    const color = {
-        color: "grey",
-    };
 
-    const { register, handleSubmit, errors } = useForm();
+    const { register, handleSubmit } = useForm();
 
     const currentActivity = useSelector(
         (state) => state && state.currentActivity
@@ -48,7 +49,13 @@ const TrackingForm = ({ isVisible, activity }) => {
                     "/api/add-activity",
                     inputData
                 );
-                if (data.success) location.replace("/");
+                console.log(
+                    "####### data from db in TrackigForm onSubmit",
+                    data
+                );
+                if (data) {
+                    dispatch(newActivityEntry(data));
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -80,14 +87,12 @@ const TrackingForm = ({ isVisible, activity }) => {
                     ref={register}
                     defaultValue={getDefaultDate()}
                 ></input>
-
                 <input
                     type="time"
                     name="begin_time"
                     ref={register}
                     defaultValue={dbResult ? "00:00" : getDefaultTime()}
                 />
-
                 <select name="quality" ref={register}>
                     <option value="" selected>
                         how did you sleep?
@@ -104,17 +109,15 @@ const TrackingForm = ({ isVisible, activity }) => {
                     <option value="1">I don't remember</option>
                     <option value="0">bad dreams</option>
                 </select>
-
                 <button>add notes</button>
                 <textarea name="notes" ref={register}></textarea>
-
                 <input
                     type="time"
                     name="end_time"
                     ref={register}
                     defaultValue={dbResult ? "00:00" : getDefaultTime()}
                 />
-                <input type="submit" />
+                <input className="tracking-form__submit-button" type="submit" />
             </form>
         </div>
     );

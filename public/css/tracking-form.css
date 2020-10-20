@@ -54,3 +54,23 @@ button {
 .placeholder {
     color: grey;
 }
+input.tracking-form__submit-button {
+    cursor: pointer;
+    background-color: rgb(154, 177, 177);
+    border-radius: 2px;
+    font-weight: bold;
+    background-color: black;
+    margin: 20px 0;
+    padding: 10px 20px;
+    font-size: 14px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    color: white;
+    outline: none;
+    border: 0.5px solid black;
+}
+.tracking-form__submit-button:hover {
+    background-color: white;
+    transition: background-color 0.3s;
+    color: black;
+}
