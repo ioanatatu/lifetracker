@@ -13,8 +13,6 @@ export default function ActivitiesMenu() {
     const activities = useSelector((state) => state && state.activities);
     console.log(activities);
 
-    // useEffect(() => {}, []);
-
     const handleClickAddActivityButton = () => {
         console.log("clicked add activity");
         setNewActivityIsOpen(!newActivityIsOpen);

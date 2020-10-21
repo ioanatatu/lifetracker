@@ -1,14 +1,19 @@
 import React from "react";
-import Chart from "chart.js";
 import { Bar } from "react-chartjs-2";
-Chart.defaults.global.defaultFontFamily = "'Courier', sans-serif";
-// Chart.defaults.global.elements.line.tension = 0; // this one removes smoothness from lines
 
-function BarChart({ duration, color }) {
+function BarChart({
+    duration,
+    color,
+    gridLinesColor,
+    ticksMin,
+    ticksMax,
+    ticksStepSize,
+}) {
     const data = {
         labels: [
             "monday",
             "tuesday",
+            "wednesday",
             "thursday",
             "friday",
             "saturday",
@@ -21,20 +26,24 @@ function BarChart({ duration, color }) {
                 // backgroundColor: "pink",
                 backgroundColor: color,
                 hoverBackgroundColor: ["hotPink", "DodgerBlue"],
-                barThickness: 20,
+                barThickness: 25,
             },
         ],
     };
     const options = {
+        maintainAspectRatio: false,
         title: {
             display: true,
-            text: "Amount of sleeping hours per week",
+            text: "Amount of sleeping hours",
+            fontColor: color,
+            fontSize: 16,
         },
         scales: {
             xAxes: [
                 {
-                    ticks: { display: false },
+                    ticks: { display: true, fontColor: color },
                     gridLines: {
+                        zeroLineColor: color,
                         display: false,
                         drawBorder: false,
                     },
@@ -42,13 +51,25 @@ function BarChart({ duration, color }) {
             ],
             yAxes: [
                 {
-                    ticks: { min: 0, max: 12, stepSize: 1 },
+                    ticks: {
+                        min: ticksMin,
+                        max: ticksMax,
+                        stepSize: ticksStepSize,
+                        fontColor: color,
+                    },
                     gridLines: {
                         display: true,
                         drawBorder: false,
+                        zeroLineColor: color,
+                        color: gridLinesColor,
                     },
                 },
             ],
+        },
+        legend: {
+            labels: {
+                fontColor: color,
+            },
         },
     };
     return <Bar data={data} options={options} />;

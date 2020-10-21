@@ -72,9 +72,12 @@ module.exports.getActivityData = (activity, user_fk, begin, end, interval) => {
         q = `SELECT * FROM activities WHERE activity=$1 AND user_fk=$2 AND begin_date::text>='2020-10-12' AND begin_date::text<'2020-10-19' ORDER BY begin_date ASC;`;
     }
     // if (interval == "month") {}
-    if (interval == "custom") {
-        params = [activity, user_fk, begin, end];
-        q = `SELECT * FROM activities WHERE activity=$1 AND user_fk=$2 AND begin_date::text>=$3 AND begin_date<=$4;`;
+    if (interval == "month") {
+        params = [activity, user_fk];
+        const today = new Date().getDate();
+        const date = `2020-10-${today}`;
+        console.log("+++++++++++++++++++", date);
+        q = `SELECT * FROM activities WHERE activity=$1 AND user_fk=$2 AND begin_date::text>='2020-10-01' AND begin_date::text<='2020-10-21';`;
     }
 
     return db.query(q, params);

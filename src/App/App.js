@@ -3,7 +3,6 @@ import axios from "../helpers/axios";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { changeCurrentActivity } from "../Redux/actions";
-
 /*
  *
  * components
@@ -11,11 +10,13 @@ import { changeCurrentActivity } from "../Redux/actions";
 import ChartsComponent from "./ChartsComponent";
 import TrackingForm from "../Components/TrackingForm";
 import ActivitiesMenu from "./ActivitiesMenu";
+import StatsCard from "../Components/StatCard";
 
 export default function App() {
     const dispatch = useDispatch();
 
     const [isVisible, setIsVisible] = useState(true);
+    const [currentInterval, setCurrentInterval] = useState("currentWeek");
     const [activity, setActivity] = useState("");
     const trackingFormIsVisible = {
         sleep: true,
@@ -54,19 +55,9 @@ export default function App() {
         });
     };
 
-    const toggleTrackingForm = (e) => {
-        const activity = e.target.textContent.toLowerCase();
-
-        Object.keys(trackingFormIsVisible).map((key) => {
-            if (key == activity) {
-                // trackingFormIsVisible[key] = true;
-            } else {
-                // trackingFormIsVisible[key] = false;
-            }
-        });
-
-        setIsVisible(!isVisible);
-        setActivity(activity);
+    const getIntervalFromChartsComponent = (arg) => {
+        console.log("........................");
+        setCurrentInterval(arg);
     };
 
     return (
@@ -85,11 +76,12 @@ export default function App() {
                             <div
                                 className="logo"
                                 onClick={() => {
-                                    currentActivity = null;
-                                    dispatch(changeCurrentActivity(null));
+                                    currentActivity = "intro";
+                                    dispatch(changeCurrentActivity("intro"));
                                 }}
                             >
-                                MyLifetracker<span>_</span>
+                                MyLifetracker
+                                <span className="color-accent">_</span>
                             </div>
                         </Link>
                     </div>
@@ -119,8 +111,7 @@ export default function App() {
                     <div className="charts-area">
                         {isVisible && (
                             <TrackingForm
-                                isVisible={isVisible}
-                                activity={currentActivity}
+                                currentInterval={currentInterval}
                             ></TrackingForm>
                         )}
                         {currentActivity && (
@@ -130,6 +121,9 @@ export default function App() {
                                 render={() => (
                                     <ChartsComponent
                                         currentActivity={currentActivity}
+                                        getIntervalFromChartsComponent={
+                                            getIntervalFromChartsComponent
+                                        }
                                     />
                                 )}
                             ></Route>
@@ -137,11 +131,38 @@ export default function App() {
                         <Route
                             exact
                             path="/"
-                            render={() => <ChartsComponent activity={null} />}
+                            render={() => (
+                                <ChartsComponent currentActivity={"intro"} />
+                            )}
                         ></Route>
                     </div>
 
-                    <div className="stats"></div>
+                    <div className="stats">
+                        <StatsCard
+                            title={"Min"}
+                            amount={8.5}
+                            day={"Tuesday"}
+                            quality={"good"}
+                            dreams={"had a few"}
+                            notes={"tra la la"}
+                        ></StatsCard>
+                        <StatsCard
+                            title={"Max"}
+                            amount={8.5}
+                            day={"Saturday"}
+                            quality={"good"}
+                            dreams={"had a few"}
+                            notes={"tra la la"}
+                        ></StatsCard>
+                        <StatsCard
+                            title={"Average"}
+                            amount={8}
+                            day={null}
+                            quality={"good"}
+                            dreams={"had a few"}
+                            notes={"tra la la"}
+                        ></StatsCard>
+                    </div>
                 </section>
             </div>
         </Router>

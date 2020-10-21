@@ -71,10 +71,24 @@ app.post("/api/add-activity", async (req, res) => {
             notes
         );
         console.log("üüüüüüüü", rows);
-        res.json(rows[0]);
+        const date = rows[0].begin_date;
+
+        console.log("..........", date.getDay());
+        console.log("..........", date.getDate());
+        if (req.body.interval == "currentWeek") {
+            if (date.getDate() < 19) {
+                return res.json({});
+            }
+        } else if (req.body.interval == "lastWeek") {
+            if (date.getDate() < 12) {
+                return res.json({});
+            }
+        } else {
+            return res.json(rows[0]);
+        }
     } catch (error) {
         console.log(error);
-        res.json({ success: false });
+        res.json({});
     }
 });
 

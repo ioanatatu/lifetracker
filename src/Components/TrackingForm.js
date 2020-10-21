@@ -5,7 +5,7 @@ import { newActivityEntry } from "../Redux/actions";
 
 import axios from "../helpers/axios";
 
-const TrackingForm = () => {
+const TrackingForm = ({ currentInterval }) => {
     const dispatch = useDispatch();
     let dbResult = false; // hardcoded to test defaultValue in the input field
     const activityData = useSelector((state) => state && state.activityData);
@@ -41,6 +41,7 @@ const TrackingForm = () => {
 
     const onSubmit = async function (inputData) {
         inputData.activity = currentActivity;
+        inputData.interval = currentInterval;
 
         if (inputData.activity) {
             // if I don't choose an activity, inputData.activity == undefined
@@ -53,7 +54,7 @@ const TrackingForm = () => {
                     "####### data from db in TrackigForm onSubmit",
                     data
                 );
-                if (data) {
+                if (Object.keys(data).length !== 0) {
                     dispatch(newActivityEntry(data));
                 }
             } catch (error) {
@@ -72,7 +73,7 @@ const TrackingForm = () => {
                         : "activity-name placeholder"
                 }
             >
-                {currentActivity ? currentActivity : "..."}
+                {currentActivity != "intro" ? currentActivity : "..."}
             </div>
             <div className="day">{getToday()}</div>
             {dbResult && (
