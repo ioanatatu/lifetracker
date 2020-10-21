@@ -175,6 +175,7 @@ const ChartsComponent = ({
                             duration={duration}
                             color={barColor}
                             gridLinesColor={gridLinesColor}
+                            beginBgColor={beginBgColor}
                             labels={labels}
                             ticksStepSize={ticksStepSize}
                             ticksMin={ticksMin}
@@ -201,16 +202,8 @@ function processActivityData(activityData, daysOfWeek) {
     const days = [];
 
     if (activityData.length > 7) {
-        for (let i = 0; i < activityData.length; i++) {
-            let index = new Date(activityData[i].begin_date).getDate();
-
-            processedActivityData.begin[index] = convertDateToTime(
-                activityData[i].begin_date
-            );
-            processedActivityData.end[index] = convertDateToTime(
-                activityData[i].end_date
-            );
-        }
+        mapMonthDataOnObject(activityData, processedActivityData);
+        console.log(processedActivityData);
     } else {
         activityData.forEach((day, i) => {
             processedActivityData.begin.push(convertDateToTime(day.begin_date));
@@ -232,7 +225,6 @@ function processActivityData(activityData, daysOfWeek) {
         });
     }
 
-    console.log("-#-#-#-#-#-#-#-#-#-# ", processedActivityData);
     return processedActivityData;
 }
 function convertDateToTime(day) {
@@ -241,7 +233,6 @@ function convertDateToTime(day) {
 }
 function formatDate(date) {
     const dateArray = date.split("T")[0].split("-");
-    console.log(date.split("T")[0].split("-"));
 
     let month;
     switch (dateArray[1]) {
@@ -255,6 +246,62 @@ function formatDate(date) {
             month = "November";
             break;
     }
-    console.log(month);
     return `${dateArray[2]} ${month}`;
+}
+function mapMonthDataOnObject(a, obj) {
+    const mapDayOfWeek = (day) => {
+        switch (day) {
+            case 1:
+                return "Monday";
+            case 2:
+                return "Tuesday";
+            case 3:
+                return "Wednesday";
+            case 4:
+                return "Thursday";
+            case 5:
+                return "Friday";
+            case 6:
+                return "Saturday";
+            case 0:
+                return "Sunday";
+        }
+    };
+
+    const items = new Date(a[a.length - 1].end_date).getDate() + 1;
+    const begin = new Array(items).fill(null);
+    const end = new Array(items).fill(null);
+    const notes = new Array(items).fill(null);
+    const duration = new Array(items).fill(null);
+    let labels = new Array(items).fill(null);
+
+    for (let i = 0; i < a.length; i++) {
+        let index = new Date(a[i].begin_date).getDate();
+
+        begin[index] = convertDateToTime(a[i].begin_date).toFixed(1);
+        end[index] = convertDateToTime(a[i].end_date).toFixed(1);
+        notes[index] = a[i].notes;
+        duration[index] = (
+            24 -
+            Number(convertDateToTime(a[i].end_date).toFixed(1)) +
+            Number(convertDateToTime(a[i].begin_date).toFixed(1))
+        ).toFixed(1);
+        labels[index] = [
+            mapDayOfWeek(new Date(a[i].begin_date).getDay()),
+            formatDate(a[i].begin_date),
+        ];
+    }
+    labels = labels.map((day) => (!day ? "not tracked" : day));
+
+    begin.shift();
+    end.shift();
+    duration.shift();
+    labels.shift();
+    notes.shift();
+
+    obj.begin = begin;
+    obj.end = end;
+    obj.duration = duration;
+    obj.labels = labels;
+    obj.notes = notes;
 }

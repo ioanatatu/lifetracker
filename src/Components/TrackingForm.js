@@ -68,7 +68,7 @@ const TrackingForm = ({ currentInterval }) => {
             <div className="question">What do you want to track today?</div>
             <div
                 className={
-                    currentActivity
+                    currentActivity != "intro"
                         ? "activity-name"
                         : "activity-name placeholder"
                 }

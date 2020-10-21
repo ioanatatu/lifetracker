@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const fs = require("fs");
 const compression = require("compression");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { origins: "localhost:7070" }); // heroku link if online
@@ -70,19 +71,16 @@ app.post("/api/add-activity", async (req, res) => {
             quality,
             notes
         );
-        console.log("üüüüüüüü", rows);
+        // console.log("üüüüüüüü", rows);
         const date = rows[0].begin_date;
 
-        console.log("..........", date.getDay());
-        console.log("..........", date.getDate());
-        if (req.body.interval == "currentWeek") {
-            if (date.getDate() < 19) {
-                return res.json({});
-            }
-        } else if (req.body.interval == "lastWeek") {
-            if (date.getDate() < 12) {
-                return res.json({});
-            }
+        // console.log("..........", date.getDay());
+        // console.log("..........", date.getDate());
+
+        if (req.body.interval == "currentWeek" && date.getDate() < 19) {
+            return res.json({});
+        } else if (req.body.interval == "lastWeek" && date.getDate() < 12) {
+            return res.json({});
         } else {
             return res.json(rows[0]);
         }
@@ -104,7 +102,11 @@ app.get("/api/activity-data", async (req, res) => {
             end,
             interval
         );
-        console.log(rows);
+        // console.log(rows);
+        fs.writeFileSync(
+            __dirname + "/month.json",
+            JSON.stringify(rows, null, 4)
+        );
         res.json({ activityData: rows });
     } catch (error) {
         console.log(error);

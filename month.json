@@ -1,0 +1,68 @@
+[
+    {
+        "id": 19,
+        "created_at": "2020-10-20T11:35:34.527Z",
+        "user_fk": 10,
+        "activity": "sleep",
+        "begin_date": "2020-10-19T04:00:00.000Z",
+        "end_date": "2020-10-19T19:34:00.000Z",
+        "activity_type": "3",
+        "difficulty": 3,
+        "notes": "I dreamt of code"
+    },
+    {
+        "id": 20,
+        "created_at": "2020-10-20T11:36:14.675Z",
+        "user_fk": 10,
+        "activity": "sleep",
+        "begin_date": "2020-10-20T08:00:00.000Z",
+        "end_date": "2020-10-20T20:34:00.000Z",
+        "activity_type": "2",
+        "difficulty": 1,
+        "notes": "I dreamt of code"
+    },
+    {
+        "id": 21,
+        "created_at": "2020-10-20T11:36:39.628Z",
+        "user_fk": 10,
+        "activity": "sleep",
+        "begin_date": "2020-10-21T05:00:00.000Z",
+        "end_date": "2020-10-21T20:40:00.000Z",
+        "activity_type": "2",
+        "difficulty": 3,
+        "notes": "I dreamt of code"
+    },
+    {
+        "id": 38,
+        "created_at": "2020-10-20T17:06:25.759Z",
+        "user_fk": 10,
+        "activity": "sleep",
+        "begin_date": "2020-10-22T04:30:00.000Z",
+        "end_date": "2020-10-22T21:00:00.000Z",
+        "activity_type": null,
+        "difficulty": null,
+        "notes": ""
+    },
+    {
+        "id": 63,
+        "created_at": "2020-10-21T17:43:56.853Z",
+        "user_fk": 10,
+        "activity": "sleep",
+        "begin_date": "2020-10-23T04:27:00.000Z",
+        "end_date": "2020-10-23T20:27:00.000Z",
+        "activity_type": null,
+        "difficulty": null,
+        "notes": ""
+    },
+    {
+        "id": 64,
+        "created_at": "2020-10-21T17:44:29.752Z",
+        "user_fk": 10,
+        "activity": "sleep",
+        "begin_date": "2020-10-24T10:27:00.000Z",
+        "end_date": "2020-10-24T21:27:00.000Z",
+        "activity_type": null,
+        "difficulty": null,
+        "notes": ""
+    }
+]
