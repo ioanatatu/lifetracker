@@ -21,6 +21,7 @@ const TrackingForm = ({ currentInterval }) => {
     const currentActivity = useSelector(
         (state) => state && state.currentActivity
     );
+    console.log("currentActivity from TrackingForm ", currentActivity);
 
     getDefaultTime();
 
@@ -29,8 +30,6 @@ const TrackingForm = ({ currentInterval }) => {
             transform: "translateX(0px)",
             transition: "transform .5s",
         });
-        // axios request to get data for TODAY
-        // populate the input fields with default values or entry from db
         return () => {
             setStyle({
                 transform: "translateX(0)",
@@ -40,7 +39,8 @@ const TrackingForm = ({ currentInterval }) => {
     }, []);
 
     const onSubmit = async function (inputData) {
-        inputData.activity = currentActivity;
+        console.log("::::::", inputData);
+        inputData.activity = currentActivity.name;
         inputData.interval = currentInterval;
 
         if (inputData.activity) {
@@ -64,62 +64,92 @@ const TrackingForm = ({ currentInterval }) => {
     };
 
     return (
-        <div className="time-form-wrapper" style={style}>
+        <div
+            className={
+                !currentActivity || currentActivity == "intro"
+                    ? "time-form-wrapper white"
+                    : "time-form-wrapper"
+            }
+            style={style}
+        >
             <div className="question">What do you want to track today?</div>
             <div
                 className={
-                    currentActivity != "intro"
-                        ? "activity-name"
-                        : "activity-name placeholder"
+                    !currentActivity || currentActivity == "intro"
+                        ? "activity-name placeholder"
+                        : "activity-name"
                 }
             >
-                {currentActivity != "intro" ? currentActivity : "..."}
+                {!currentActivity || currentActivity == "intro"
+                    ? "activity"
+                    : currentActivity.name}
             </div>
             <div className="day">{getToday()}</div>
             {dbResult && (
                 <p className="message">you have no entries for today</p>
             )}
-            <form onSubmit={handleSubmit(onSubmit)} className="tracking-form">
-                <input
-                    type="date"
-                    name="date"
-                    min="2020-01-01"
-                    max="2020-12-31"
-                    ref={register}
-                    defaultValue={getDefaultDate()}
-                ></input>
-                <input
-                    type="time"
-                    name="begin_time"
-                    ref={register}
-                    defaultValue={dbResult ? "00:00" : getDefaultTime()}
-                />
-                <select name="quality" ref={register}>
-                    <option value="" selected>
-                        how did you sleep?
-                    </option>
-                    <option value="3">like a baby</option>
-                    <option value="2">good</option>
-                    <option value="1">meh</option>
-                    <option value="0">tossing and turning</option>
-                </select>
-                <select name="dreams" ref={register}>
-                    <option value="">did you dream?</option>
-                    <option value="3">many and wonderful</option>
-                    <option value="2">had a few</option>
-                    <option value="1">I don't remember</option>
-                    <option value="0">bad dreams</option>
-                </select>
-                <button>add notes</button>
-                <textarea name="notes" ref={register}></textarea>
-                <input
-                    type="time"
-                    name="end_time"
-                    ref={register}
-                    defaultValue={dbResult ? "00:00" : getDefaultTime()}
-                />
-                <input className="tracking-form__submit-button" type="submit" />
-            </form>
+            {currentActivity && (
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="tracking-form"
+                >
+                    <input
+                        type="date"
+                        name="date"
+                        min="2020-01-01"
+                        max="2020-12-31"
+                        ref={register}
+                        defaultValue={getDefaultDate()}
+                    ></input>
+
+                    <p className="tracking-form__time">
+                        {titleBasedOnCurrentActivity(currentActivity.name)[0]}
+                    </p>
+                    <input
+                        className="tracking-form__time-input"
+                        type="time"
+                        name="begin_time"
+                        ref={register}
+                        defaultValue={dbResult ? "00:00" : getDefaultTime()}
+                    />
+                    <select name="quality" ref={register}>
+                        <option value="-1">
+                            {currentActivity.quality
+                                ? currentActivity.quality.question
+                                : ""}
+                        </option>
+                        {mapStateArrayToHtml(currentActivity.quality)}
+                    </select>
+                    <select name="difficulty" ref={register}>
+                        <option value="-1">
+                            {currentActivity.difficulty
+                                ? currentActivity.difficulty.question
+                                : ""}
+                        </option>
+                        {mapStateArrayToHtml(currentActivity.difficulty)}
+                    </select>
+                    <textarea
+                        defaultValue="add notes..."
+                        name="notes"
+                        ref={register}
+                    ></textarea>
+
+                    <p className="tracking-form__time">
+                        {titleBasedOnCurrentActivity(currentActivity.name)[1]}
+                    </p>
+                    <input
+                        type="time"
+                        name="end_time"
+                        ref={register}
+                        defaultValue={dbResult ? "00:00" : getDefaultTime()}
+                    />
+                    <input
+                        className="tracking-form__submit-button"
+                        type="submit"
+                        value="submit"
+                    />
+                </form>
+            )}
         </div>
     );
 };
@@ -164,4 +194,23 @@ const getToday = () => {
         case 6:
             return "Saturday";
     }
+};
+function mapStateArrayToHtml(array) {
+    if (array) {
+        let i = array.values.length - 1;
+        return array.values.map((el, index) => {
+            return (
+                <option value={i - index} key={index.toString()}>
+                    {el}
+                </option>
+            );
+        });
+    } else {
+        return;
+    }
+}
+const titleBasedOnCurrentActivity = (title) => {
+    return title == "sleep"
+        ? ["wake-up time", "to sleep time"]
+        : ["start", "end"];
 };

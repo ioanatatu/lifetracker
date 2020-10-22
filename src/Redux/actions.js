@@ -3,11 +3,30 @@ import axios from "../helpers/axios";
 export function addActivity(activity) {
     return {
         type: "ADD_ACTIVITY",
-        newActivity: { name: activity },
+        newActivity: {
+            name: activity,
+            quality: {
+                question: "How was your ${activity}?",
+                values: [
+                    "excellent",
+                    "good and made progress",
+                    "okay-ish",
+                    "not happy with it",
+                ],
+            },
+            difficulty: {
+                question: "Was it hard?",
+                values: [
+                    "Easy and I had energy",
+                    "Not easy but I had energy",
+                    "Normal",
+                    "Struggled",
+                ],
+            },
+        },
     };
 }
 export function changeCurrentActivity(activity) {
-    console.log("currentActivity from actions ", activity);
     return {
         type: "CHANGE_CURRENT_ACTIVITY",
         currentActivity: activity,

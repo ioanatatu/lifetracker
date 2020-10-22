@@ -36,7 +36,14 @@
 .nav-buttons li:hover {
     background-color: #8acfe6;
     background-color: #38a7a7;
+    background-color: #78c8e1;
     transition: background-color 0.3s;
+}
+li.current__interval {
+    background-color: #78c8e1;
+    color: black;
+    font-weight: 500;
+    transition: all 0.3s;
 }
 .invisible li,
 .invisible > li:hover {

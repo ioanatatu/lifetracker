@@ -1,7 +1,57 @@
 const activities = [
-    { name: "sleep" },
-    { name: "fasting" },
-    { name: "exercise" },
+    {
+        name: "sleep",
+        quality: {
+            question: "How did you sleep?",
+            values: ["like a baby", "good", "meh", "tossing and turning"],
+        },
+        difficulty: {
+            question: "Did you dream?",
+            values: [
+                "many and wonderful",
+                "had a few",
+                "I don't remember",
+                "bad dreams",
+            ],
+        },
+    },
+    {
+        name: "fasting",
+        quality: {
+            question: "What type of fast?",
+            values: [
+                "juice-fasting",
+                "with coffee",
+                "with tea",
+                "just plain water",
+            ],
+        },
+        difficulty: {
+            question: "How did you feel?",
+            values: [
+                "energy and clarity",
+                "good",
+                "low energy",
+                "I had head aches",
+            ],
+        },
+    },
+    {
+        name: "exercise",
+        quality: {
+            question: "How did you train?",
+            values: ["weights", "cardio", "stretching", "outdoors"],
+        },
+        difficulty: {
+            question: "How did you feel?",
+            values: [
+                "like a superhero",
+                "I made progress",
+                "low energy",
+                "no progress at all",
+            ],
+        },
+    },
 ];
 
 export default function reducer(state = { activities: activities }, action) {
@@ -10,7 +60,6 @@ export default function reducer(state = { activities: activities }, action) {
             state = Object.assign({}, state, {
                 activities: [...state.activities],
             });
-            console.log(state.activities);
             break;
 
         case "ADD_ACTIVITY":
@@ -32,8 +81,6 @@ export default function reducer(state = { activities: activities }, action) {
             });
             break;
         case "NEW_ACTIVITY_ENTRY":
-            console.log("####___## from REDUCER ", action.activity);
-
             state = Object.assign({}, state, {
                 activityData: [...state.activityData, action.activity],
             });

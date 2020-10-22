@@ -1,17 +1,20 @@
 .time-form-wrapper {
-    background-color: rgb(148, 214, 214);
+    background-color: rgb(148, 207, 214);
     position: absolute;
     bottom: 170px;
-    padding: 40px;
+    padding: 10px 40px;
     text-align: center;
     min-height: calc(100vh - 170px);
     right: 0;
+    width: 250px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.1),
+        0 3px 1px -2px rgba(0, 0, 0, 0.1);
 }
 .activity-name {
-    font-weight: bold;
+    font-weight: 400;
     margin: 20px 0;
-    font-size: 30px;
-    height: 50px;
+    font-size: 24px;
+    height: 40px;
     background-color: black;
     color: whitesmoke;
     border-radius: 3px;
@@ -40,7 +43,13 @@
 }
 .day {
     /* border-bottom: 1px solid grey; */
-    font-size: 24px;
+    font-size: 18px;
+    font-weight: 400;
+    width: 160px;
+    border-bottom: 2px solid black;
+}
+.white .day {
+    border-bottom: 2px solid white;
 }
 .tracking-form {
     display: flex;
@@ -53,6 +62,7 @@ select,
 option,
 button {
     font-size: 14px;
+    width: 170px;
 }
 .tracking-form input,
 select,
@@ -67,10 +77,11 @@ input.tracking-form__submit-button {
     cursor: pointer;
     background-color: rgb(154, 177, 177);
     border-radius: 2px;
-    font-weight: bold;
+    font-weight: 400;
+    width: auto;
     background-color: black;
-    margin: 20px 0;
-    padding: 10px 20px;
+    margin-top: 20px;
+    padding: 6px 20px;
     font-size: 14px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s;
@@ -82,4 +93,72 @@ input.tracking-form__submit-button {
     background-color: white;
     transition: background-color 0.3s;
     color: black;
+}
+.tracking-form__time {
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: 12px;
+    width: 90px;
+    border-bottom: 6px solid black;
+}
+.white .tracking-form__time {
+    border-bottom: 6px solid white;
+    color: white;
+}
+/* ----------------------------------------- FORM STYLING ---------- */
+input[type="date"] {
+    background: none;
+    width: auto;
+    border: none;
+    text-align: center;
+    margin-bottom: 20px;
+}
+input[type="time"] {
+    width: auto;
+    background: none;
+    border: none;
+    font-size: 20px;
+    text-align: center;
+    color: black;
+    margin-bottom: 10px;
+    margin-top: 0px;
+}
+select {
+    background: none;
+    border: none;
+    border-bottom: 2px solid black;
+    width: 170px;
+    font-size: 16px;
+}
+.white select {
+    border-bottom: 2px solid white;
+    color: white;
+}
+textarea {
+    background: none;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 170px;
+    padding: 3px;
+}
+
+.white .day,
+.white input[type="time"],
+.white input[type="date"],
+.white textarea {
+    color: white;
+    outline: none;
+    border-bottom-color: whitesmoke;
+}
+.white input[type="time"]::-webkit-calendar-picker-indicator,
+.white input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+.white textarea {
+    border: none;
+}
+.white input.tracking-form__submit-button {
+    color: white;
+    background-color: rgb(148, 207, 214);
+    border-color: white;
 }

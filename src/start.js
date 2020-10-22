@@ -50,7 +50,7 @@ function renderIfUserIsLoggedIn() {
     // init(store);
     return (
         <Provider store={store}>
-            <App />;
+            <App />
         </Provider>
     );
 }

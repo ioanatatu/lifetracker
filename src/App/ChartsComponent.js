@@ -8,14 +8,19 @@ const ChartsComponent = ({
     currentActivity,
     getIntervalFromChartsComponent,
 }) => {
-    //// set generic values to render if there is no currentActivity chosen
     let showNoActivityDataMessage = false;
     const dispatch = useDispatch();
+
+    const [inter, setInter] = useState("current week");
+
     let activityData = useSelector((state) => state && state.activityData);
     let processedActivityData = {};
+    let interval = "current week";
 
     console.log("currentActivity from ChartsComponent", currentActivity);
     console.log("activityData from ChartsComponent", activityData);
+
+    //// set generic values to render if there is no currentActivity chosen
     if (activityData && activityData.length == 0) {
         console.log("activityData IS EMPTY!!!!!");
         showNoActivityDataMessage = true;
@@ -29,7 +34,6 @@ const ChartsComponent = ({
         "saturday",
         "sunday",
     ];
-
     let begin,
         end,
         beginLineColor,
@@ -44,20 +48,19 @@ const ChartsComponent = ({
         ticksMin,
         ticksMax,
         ticksStepSize;
-    let interval = "current week";
-    ////
-    if (activityData && currentActivity != "intro") {
+
+    if (activityData && currentActivity.name != "intro") {
         processedActivityData = processActivityData(activityData, daysOfWeek);
 
-        if (currentActivity == "sleep") {
+        if (currentActivity.name == "sleep") {
             ticksMin = 0;
             ticksMax = 12;
             ticksStepSize = 1;
-        } else if (currentActivity == "fasting") {
+        } else if (currentActivity.name == "fasting") {
             ticksMin = 14;
             ticksMax = 24;
             ticksStepSize = 2;
-        } else if (currentActivity == "exercise") {
+        } else if (currentActivity.name == "exercise") {
             ticksMin = 0;
             ticksMax = 4;
             ticksStepSize = 0.5;
@@ -75,7 +78,7 @@ const ChartsComponent = ({
         color = "black";
         gridLinesColor = "#a7a7a7";
         barColor = ["pink", "SkyBlue", "Plum", "YellowGreen", "LightSalmon"];
-    } else if (currentActivity == "intro") {
+    } else if (currentActivity.name == "intro") {
         showNoActivityDataMessage = false;
         begin = [6, 5, 8, 5, 8, 9, 12];
         end = [21, 22, 23, 22, 23.5, 24, 21];
@@ -95,52 +98,77 @@ const ChartsComponent = ({
     }
 
     useEffect(() => {
-        if (currentActivity != "intro")
-            dispatch(getActivityData(currentActivity, "currentWeek"));
+        if (currentActivity.name != "intro")
+            dispatch(getActivityData(currentActivity.name, "currentWeek"));
     }, [currentActivity]);
 
     return (
-        <div className="charts-and-buttons-container" key={currentActivity}>
+        <div
+            className="charts-and-buttons-container"
+            key={currentActivity.name}
+        >
             <ul
                 className={
-                    !showNoActivityDataMessage && currentActivity != "intro"
+                    !showNoActivityDataMessage &&
+                    currentActivity.name != "intro"
                         ? "nav-buttons"
                         : "nav-buttons invisible"
                 }
             >
                 <li
+                    className={inter == "last week" ? "current__interval" : ""}
                     onClick={() => {
-                        if (currentActivity != "intro") {
+                        if (currentActivity.name != "intro") {
                             dispatch(
-                                getActivityData(currentActivity, "lastWeek")
+                                getActivityData(
+                                    currentActivity.name,
+                                    "lastWeek"
+                                )
                             );
                             getIntervalFromChartsComponent("lastWeek");
+                            // setInterval("last week");
                         }
                         interval = "last week";
+                        setInter("last week");
                     }}
                 >
                     last week
                 </li>
                 <li
+                    className={
+                        inter == "current week" ? "current__interval" : ""
+                    }
                     onClick={() => {
-                        if (currentActivity != "intro") {
+                        if (currentActivity.name != "intro") {
                             dispatch(
-                                getActivityData(currentActivity, "currentWeek")
+                                getActivityData(
+                                    currentActivity.name,
+                                    "currentWeek"
+                                )
                             );
                             getIntervalFromChartsComponent("currentWeek");
+                            // setInterval("current week");
                         }
                         interval = "current week";
+                        setInter("current week");
                     }}
                 >
                     current week
                 </li>
                 <li
+                    className={
+                        inter == "current month" ? "current__interval" : ""
+                    }
                     onClick={() => {
-                        if (currentActivity != "intro") {
-                            dispatch(getActivityData(currentActivity, "month"));
+                        if (currentActivity.name != "intro") {
+                            dispatch(
+                                getActivityData(currentActivity.name, "month")
+                            );
                             getIntervalFromChartsComponent("currentMonth");
+                            // setInterval("current month");
                         }
                         interval = "current month";
+                        setInter("current month");
                     }}
                 >
                     current month
@@ -148,7 +176,7 @@ const ChartsComponent = ({
             </ul>
             {showNoActivityDataMessage && (
                 <div className="no-data-message">
-                    you have no data for {currentActivity}
+                    you have no data for {currentActivity.name}
                 </div>
             )}
 

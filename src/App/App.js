@@ -10,29 +10,18 @@ import { changeCurrentActivity } from "../Redux/actions";
 import ChartsComponent from "./ChartsComponent";
 import TrackingForm from "../Components/TrackingForm";
 import ActivitiesMenu from "./ActivitiesMenu";
-import StatsCard from "../Components/StatCard";
+import StatsDisplay from "./StatsDisplay";
 
 export default function App() {
     const dispatch = useDispatch();
 
-    const [isVisible, setIsVisible] = useState(true);
     const [currentInterval, setCurrentInterval] = useState("currentWeek");
-    const [activity, setActivity] = useState("");
-    const trackingFormIsVisible = {
-        sleep: true,
-        fast: false,
-        exercise: false,
-        events: false,
-    };
 
     let currentActivity = useSelector(
         (state) => state && state.currentActivity
     );
 
-    useEffect(() => {
-        currentActivity = null;
-    }, []);
-    console.log("currentActivity from App ", currentActivity);
+    useEffect(() => {}, []);
 
     const logout = () => {
         axios
@@ -43,26 +32,14 @@ export default function App() {
             })
             .catch((error) => console.log(error));
     };
-    const handleClickOutside = (e) => {
-        // console.log(trackingForm);
-        Object.keys(trackingFormIsVisible).map((key) => {
-            if (key == e.target.textContent.toLowerCase()) {
-                trackingFormIsVisible[key] = false;
-                console.log(e.target.textContent);
-                setActivity(e.target.textContent);
-                console.log("activity from handle click outside", activity);
-            }
-        });
-    };
 
     const getIntervalFromChartsComponent = (arg) => {
-        console.log("........................");
         setCurrentInterval(arg);
     };
 
     return (
         <Router>
-            <div id="container" onClick={handleClickOutside}>
+            <div id="container">
                 <aside className="menu">
                     <div className="menu-top">
                         <p className="menu__user-name">
@@ -86,7 +63,9 @@ export default function App() {
                         </Link>
                     </div>
                     <div className="menu-bottom">
-                        <ActivitiesMenu></ActivitiesMenu>
+                        <ActivitiesMenu
+                            currentActivity={currentActivity}
+                        ></ActivitiesMenu>
 
                         <ul className="network">
                             <li>Friends</li>
@@ -107,17 +86,15 @@ export default function App() {
                             logout
                         </button>
                     </div>
-
                     <div className="charts-area">
-                        {isVisible && (
-                            <TrackingForm
-                                currentInterval={currentInterval}
-                            ></TrackingForm>
-                        )}
+                        <TrackingForm
+                            currentInterval={currentInterval}
+                            // currentActivity={currentActivity}
+                        ></TrackingForm>
                         {currentActivity && (
                             <Route
                                 exact
-                                path={`/${currentActivity}`}
+                                path={`/${currentActivity.name}`}
                                 render={() => (
                                     <ChartsComponent
                                         currentActivity={currentActivity}
@@ -132,37 +109,13 @@ export default function App() {
                             exact
                             path="/"
                             render={() => (
-                                <ChartsComponent currentActivity={"intro"} />
+                                <ChartsComponent
+                                    currentActivity={{ name: "intro" }}
+                                />
                             )}
                         ></Route>
                     </div>
-
-                    <div className="stats">
-                        <StatsCard
-                            title={"Min"}
-                            amount={8.5}
-                            day={"Tuesday"}
-                            quality={"good"}
-                            dreams={"had a few"}
-                            notes={"tra la la"}
-                        ></StatsCard>
-                        <StatsCard
-                            title={"Max"}
-                            amount={8.5}
-                            day={"Saturday"}
-                            quality={"good"}
-                            dreams={"had a few"}
-                            notes={"tra la la"}
-                        ></StatsCard>
-                        <StatsCard
-                            title={"Average"}
-                            amount={8}
-                            day={null}
-                            quality={"good"}
-                            dreams={"had a few"}
-                            notes={"tra la la"}
-                        ></StatsCard>
-                    </div>
+                    <StatsDisplay></StatsDisplay>
                 </section>
             </div>
         </Router>

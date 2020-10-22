@@ -5,7 +5,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    padding-left: 7px;
 }
 .categories {
     overflow-y: scroll;
@@ -15,7 +16,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 200px;
+    height: 150px;
     /* background-color: pink; */
 }
 
@@ -28,8 +29,11 @@
     transition: background-color 0.3s;
 }
 .categories li:hover {
-    /* background-color: #9eddf1; */
+    background-color: #9eddf1;
     transition: background-color 0.3s;
+}
+.current__activity {
+    background-color: #9eddf1;
 }
 .categories a {
     font-size: 16px;
@@ -52,18 +56,44 @@ div.new-category {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(127, 188, 198, 0.7);
 }
+.new-act__input-and-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .add-cat {
     cursor: pointer;
     transition: color 0.3s;
     height: auto;
+    text-align: center;
 }
 .add-cat:hover {
-    color: rgb(148, 214, 214);
+    color: #4dc8f1;
     transition: color 0.3s;
 }
-.custom-input {
+.input-new-activity {
+    background: none;
     border: none;
     outline: none;
-    padding: 5px;
-    position: absolute;
+    padding: 3px;
+    border-bottom: 1px solid black;
+    width: 120px;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 500;
+}
+.input-new-activity::placeholder {
+    letter-spacing: 0.2px;
+    color: rgb(137, 137, 137);
+}
+.new-activ-submit {
+    font-size: 14px;
+    color: whitesmoke;
+    background-color: black;
+    /* width: 50px; */
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-align: center;
+    margin-top: 10px;
+    cursor: pointer;
 }
