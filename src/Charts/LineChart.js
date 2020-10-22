@@ -13,12 +13,20 @@ function LineChart({
     gridLinesColor,
     interval,
     notes,
+    currentActivity,
 }) {
-    console.log("_._._._._._._ labels", labels);
-    console.log("_._._._._._._ begin", begin);
+    let chartTitle = "";
+    if (currentActivity == "sleep") {
+        chartTitle = `Waking up and going to sleep times for ${interval}`;
+    } else if (currentActivity == "fasting") {
+        chartTitle = `Fasting periods for ${interval}`;
+    } else if (currentActivity == "exercise") {
+        chartTitle = `Exercise times and duration for ${interval}`;
+    } else {
+        chartTitle = `${currentActivity} routine for ${interval}`;
+    }
 
     const data = {
-        // labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
         labels: labels,
         datasets: [
             {
@@ -45,7 +53,7 @@ function LineChart({
         maintainAspectRatio: false,
         title: {
             display: true,
-            text: `Waking up and going to sleep times for ${interval}`,
+            text: chartTitle,
             fontColor: color,
             fontSize: 16,
         },
@@ -79,9 +87,44 @@ function LineChart({
             },
         },
         tooltips: {
+            custom: function (tooltip) {
+                if (!tooltip) return;
+                // disable displaying the color box;
+                tooltip.displayColors = false;
+            },
             callbacks: {
-                label: function (tooltipItem, notes) {
-                    return tooltipItem.yLabel + "\n";
+                label: function (tooltipItem, data) {
+                    console.log("ööööö___", tooltipItem, "and data\n", data);
+                    var label =
+                        data.datasets[tooltipItem.datasetIndex].label || "";
+
+                    let notesWithLines = notes.map((currentNote) => {
+                        let i = 0;
+                        let j = 0;
+                        let notesInLines = currentNote.split(" ");
+                        let newArray = [];
+
+                        while (i < notesInLines.length) {
+                            for (let n = 0; n < 8; n++) {
+                                newArray[j] =
+                                    newArray[j] + " " + notesInLines[i];
+                                i++;
+                            }
+                            j++;
+                        }
+
+                        return newArray.map((note) => {
+                            return note.substr(9);
+                        });
+                    });
+
+                    return [
+                        data.datasets[0].label + ": " + tooltipItem.value,
+                        " 🗯 ",
+                        "NOTES: " + notesWithLines[tooltipItem.index][0] || "",
+                        notesWithLines[tooltipItem.index][1] || "",
+                        notesWithLines[tooltipItem.index][2] || "",
+                    ];
                 },
             },
         },

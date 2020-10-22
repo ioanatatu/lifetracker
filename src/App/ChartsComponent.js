@@ -26,13 +26,13 @@ const ChartsComponent = ({
         showNoActivityDataMessage = true;
     }
     const daysOfWeek = [
-        "monday",
-        "tuesday",
-        "wednesday",
-        "thursday",
-        "friday",
-        "saturday",
-        "sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
     ];
     let begin,
         end,
@@ -194,20 +194,22 @@ const ChartsComponent = ({
                             interval={interval}
                             endLineColor={endLineColor}
                             notes={notes}
+                            currentActivity={currentActivity.name}
                         />
                     </div>
 
                     <div className="bar">
                         <BarChart
+                            labels={labels}
                             height={350}
                             duration={duration}
                             color={barColor}
                             gridLinesColor={gridLinesColor}
                             beginBgColor={beginBgColor}
-                            labels={labels}
                             ticksStepSize={ticksStepSize}
                             ticksMin={ticksMin}
                             ticksMax={ticksMax}
+                            currentActivity={currentActivity.name}
                         />
                     </div>
                 </div>
@@ -245,7 +247,7 @@ function processActivityData(activityData, daysOfWeek) {
                         10
                 ) / 10
             );
-            processedActivityData.notes.push(activityData.notes);
+            processedActivityData.notes.push(day.notes);
         });
 
         processedActivityData.labels = daysOfW.map((d, i) => {

@@ -11,23 +11,30 @@
 .stats-card {
     height: 150px;
     color: rgb(218, 218, 218);
-    padding: 10px;
     border-radius: 2px;
     border: 0.4px solid #1d202c;
-    margin: 0 50px;
+    margin: 5px 50px;
 }
 .stats-card__title {
-    font-size: 30px;
-    font-weight: 500;
+    font-size: 22px;
+    font-weight: bolder;
     letter-spacing: 1.5px;
+}
+.stats-card__day {
+    font-weight: bolder;
 }
 .stats-card__duration {
     font-size: 12px;
     font-weight: bolder;
 }
-.stats-card__day {
+.stats-card__details {
     font-size: 12px;
+    font-weight: 400;
+    color: rgb(148, 207, 214);
+    width: 230px;
 }
-.stats-card__text {
-    font-size: 12px;
+.stats-card__content {
+    font-size: 10px;
+    color: whitesmoke;
+    background-color: #131416;
 }

@@ -162,3 +162,6 @@ textarea {
     background-color: rgb(148, 207, 214);
     border-color: white;
 }
+.white input[type="date"]::-webkit-datetime-edit {
+    color: white;
+}

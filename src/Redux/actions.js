@@ -6,7 +6,7 @@ export function addActivity(activity) {
         newActivity: {
             name: activity,
             quality: {
-                question: "How was your ${activity}?",
+                question: `How was your ${activity}?`,
                 values: [
                     "excellent",
                     "good and made progress",
@@ -17,10 +17,10 @@ export function addActivity(activity) {
             difficulty: {
                 question: "Was it hard?",
                 values: [
-                    "Easy and I had energy",
-                    "Not easy but I had energy",
-                    "Normal",
-                    "Struggled",
+                    "easy and I had energy",
+                    "not easy but I had energy",
+                    "normal",
+                    "struggled",
                 ],
             },
         },

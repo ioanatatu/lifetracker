@@ -51,7 +51,7 @@ const TrackingForm = ({ currentInterval }) => {
                     inputData
                 );
                 console.log(
-                    "####### data from db in TrackigForm onSubmit",
+                    ":::::::data from db in TrackigForm onSubmit",
                     data
                 );
                 if (Object.keys(data).length !== 0) {

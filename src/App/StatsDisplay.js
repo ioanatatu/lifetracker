@@ -5,9 +5,11 @@ import { useSelector } from "react-redux";
 const StatsDisplay = () => {
     let activityData = useSelector((state) => state && state.activityData);
     let minWakeUp = {};
+    let maxGoSleep = {};
 
     if (activityData) {
         minWakeUp = getMinWakeUpForStats(activityData);
+        maxGoSleep = getMaxGoingToSleepForStats(activityData);
     }
 
     // useEffect(() => {
@@ -26,21 +28,14 @@ const StatsDisplay = () => {
                         difficulty={minWakeUp.difficulty}
                         notes={minWakeUp.notes}
                     ></StatsCard>
+
                     <StatsCard
-                        title={"Max"}
-                        amount={8.5}
-                        day={"Saturday"}
-                        quality={"good"}
-                        difficulty={"had a few"}
-                        notes={"tra la la"}
-                    ></StatsCard>
-                    <StatsCard
-                        title={"Average"}
-                        amount={8}
-                        day={null}
-                        quality={"good"}
-                        difficulty={"had a few"}
-                        notes={"tra la la"}
+                        title={maxGoSleep.title}
+                        amount={maxGoSleep.amount}
+                        day={maxGoSleep.day}
+                        quality={maxGoSleep.quality}
+                        difficulty={maxGoSleep.difficulty}
+                        notes={maxGoSleep.notes}
                     ></StatsCard>
                 </React.Fragment>
             )}
@@ -73,7 +68,6 @@ const mapDayOfWeek = (day) => {
             return "Sunday";
     }
 };
-
 function getMinWakeUpForStats(a) {
     if (a && a.length > 0) {
         let min = 0;
@@ -86,10 +80,16 @@ function getMinWakeUpForStats(a) {
             }
         }
 
-        const wakeUp = a[min].begin_date.substring(11, 16);
+        let wakeUp = a[min].begin_date.substring(11, 16);
+        let hour = wakeUp.split(":")[0];
+        hour = Number(hour) + 2;
+        if (hour < 10) {
+            hour = "0" + hour;
+        }
+        wakeUp = hour + ":" + wakeUp.split(":")[1];
 
         const statsCardData = {
-            title: "Min",
+            title: "min",
             subtitle: "Earliest wake-up time",
             amount: wakeUp,
             day: mapDayOfWeek(new Date(a[min].begin_date).getDay()),
@@ -103,27 +103,38 @@ function getMinWakeUpForStats(a) {
     }
 }
 function getMaxGoingToSleepForStats(a) {
-    let max = 0;
-    for (let i = 1; i < a.length; i++) {
-        if (
-            a[max].end_date.substring(11, 16) < a[i].end_date.substring(11, 16)
-        ) {
-            max = i;
+    if (a && a.length > 0) {
+        let max = 0;
+        for (let i = 1; i < a.length; i++) {
+            if (
+                a[max].end_date.substring(11, 16) <
+                a[i].end_date.substring(11, 16)
+            ) {
+                max = i;
+            }
         }
+
+        let goToSleep = a[max].end_date.substring(11, 16);
+        let hour = goToSleep.split(":")[0];
+        hour = Number(hour) + 2;
+        if (hour < 10) {
+            hour = "0" + hour;
+        }
+        goToSleep = hour + ":" + goToSleep.split(":")[1];
+
+        const statsCardData = {
+            title: "max",
+            subtitle: "Lates goint to sleep time",
+            amount: goToSleep,
+            day: mapDayOfWeek(new Date(a[max].end_date).getDay()),
+            quality: mapQualityOnSleep(a[max].activity_type),
+            difficulty: mapDifficultyOnSleep(a[max].difficulty),
+            notes: a[max].notes || "no notes",
+        };
+        return statsCardData;
+    } else {
+        return null;
     }
-
-    const goToSleep = a[max].end_date.substring(11, 16);
-
-    const statsCardData = {
-        title: "Max",
-        subtitle: "Lates goint to sleep time",
-        amount: goToSleep,
-        day: mapDayOfWeek(new Date(a[max].end_date).getDay()),
-        quality: mapQualityOnSleep(a[max].activity_type),
-        difficulty: mapDifficultyOnSleep(a[max].difficulty),
-        notes: a[max].notes || "no notes",
-    };
-    return statsCardData;
 }
 function mapQualityOnSleep(num) {
     switch (num) {
@@ -135,7 +146,7 @@ function mapQualityOnSleep(num) {
             return "meh";
         case 3:
             return "tossing and turning";
-        default:
+        case -1:
             return "not tracked";
     }
 }
@@ -149,7 +160,7 @@ function mapDifficultyOnSleep(num) {
             return "I don't remember";
         case 3:
             return "bad dreams";
-        default:
+        case -1:
             return "not tracked";
     }
 }
