@@ -13,7 +13,9 @@ const Welcome = () => {
             <div className="intro">
                 <header className="header">
                     <h2>Life</h2>
-                    <h2>tracker.</h2>
+                    <h2>
+                        tracker<span className="accent">_</span>
+                    </h2>
                 </header>
                 <h4>
                     Journal and visualize your daily routines. Share your

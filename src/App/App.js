@@ -77,14 +77,15 @@ export default function App() {
 
                 <section className="main">
                     <div className="top-bar">
-                        <button
+                        <div
                             className="logout"
                             onClick={() => {
+                                console.log("__LOGOUT__");
                                 logout();
                             }}
                         >
                             logout
-                        </button>
+                        </div>
                     </div>
                     <div className="charts-area">
                         <TrackingForm

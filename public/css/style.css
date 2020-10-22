@@ -35,15 +35,28 @@ body {
     background-color: #bfd0e8;
     background-color: #4b54e1;
     background-color: #202133;
+    background-color: #cbdadd;
+    background-color: rgb(148, 207, 214);
+
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
 }
+.header {
+    position: relative;
+}
+.accent {
+    color: #4dc8f1;
+    position: absolute;
+    top: 70px;
+    right: 100px;
+}
 .welcome {
     height: 650px;
     width: 1100px;
     background-color: #e1e9fe;
+    background-color: white;
     display: grid;
     grid-template-columns: 1.15fr 1fr;
     border-radius: 5px;
@@ -51,13 +64,13 @@ body {
 h2 {
     font-family: "Poppins", sans-serif;
     /* font-family: "DM Sans", sans-serif; */
-    font-size: 100px;
+    font-size: 90px;
     line-height: 80px;
 }
 h4 {
     font-family: "Poppins", sans-serif;
     font-family: "DM Sans", sans-serif;
-    font-size: 24px;
+    font-size: 22px;
     margin-top: 40px;
     line-height: 25px;
 }
@@ -80,8 +93,8 @@ h5 > a {
     padding: 50px;
     padding-top: 170px;
     padding-bottom: 30px;
-    background-color: #3d3e69;
     background-color: #b0e3f5d7;
+    background-color: white;
 
     display: flex;
     flex-direction: column;

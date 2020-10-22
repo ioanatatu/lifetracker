@@ -1,79 +1,24 @@
 [
     {
-        "id": 23,
-        "created_at": "2020-10-20T12:59:37.351Z",
+        "id": 77,
+        "created_at": "2020-10-22T15:11:34.641Z",
         "user_fk": 10,
         "activity": "sleep",
-        "begin_date": "2020-10-12T04:30:00.000Z",
-        "end_date": "2020-10-12T19:58:00.000Z",
-        "activity_type": "3",
-        "difficulty": 3,
-        "notes": "This is what I wish had happened..."
+        "begin_date": "2020-10-19T04:30:00.000Z",
+        "end_date": "2020-10-19T21:00:00.000Z",
+        "activity_type": null,
+        "difficulty": 1,
+        "notes": "I woke up thinking about my final project"
     },
     {
-        "id": 24,
-        "created_at": "2020-10-20T13:00:19.604Z",
+        "id": 78,
+        "created_at": "2020-10-22T15:15:43.968Z",
         "user_fk": 10,
         "activity": "sleep",
-        "begin_date": "2020-10-13T05:30:00.000Z",
-        "end_date": "2020-10-13T20:30:00.000Z",
-        "activity_type": "1",
+        "begin_date": "2020-10-20T05:30:00.000Z",
+        "end_date": "2020-10-20T21:30:00.000Z",
+        "activity_type": null,
         "difficulty": 2,
-        "notes": ""
-    },
-    {
-        "id": 25,
-        "created_at": "2020-10-20T13:00:40.585Z",
-        "user_fk": 10,
-        "activity": "sleep",
-        "begin_date": "2020-10-14T03:30:00.000Z",
-        "end_date": "2020-10-14T20:30:00.000Z",
-        "activity_type": "1",
-        "difficulty": 0,
-        "notes": ""
-    },
-    {
-        "id": 26,
-        "created_at": "2020-10-20T13:01:12.640Z",
-        "user_fk": 10,
-        "activity": "sleep",
-        "begin_date": "2020-10-15T06:30:00.000Z",
-        "end_date": "2020-10-15T21:30:00.000Z",
-        "activity_type": "1",
-        "difficulty": 0,
-        "notes": "I had a beautiful dream about being in nature."
-    },
-    {
-        "id": 27,
-        "created_at": "2020-10-20T13:01:57.820Z",
-        "user_fk": 10,
-        "activity": "sleep",
-        "begin_date": "2020-10-16T05:30:00.000Z",
-        "end_date": "2020-10-16T21:30:00.000Z",
-        "activity_type": "2",
-        "difficulty": 2,
-        "notes": "I'm so happy today is Friday!!!"
-    },
-    {
-        "id": 28,
-        "created_at": "2020-10-20T13:02:34.530Z",
-        "user_fk": 10,
-        "activity": "sleep",
-        "begin_date": "2020-10-17T07:30:00.000Z",
-        "end_date": "2020-10-17T21:30:00.000Z",
-        "activity_type": "2",
-        "difficulty": 2,
-        "notes": "Woke up without alarm clock! WO-DER-FUL!!"
-    },
-    {
-        "id": 29,
-        "created_at": "2020-10-20T13:03:13.735Z",
-        "user_fk": 10,
-        "activity": "sleep",
-        "begin_date": "2020-10-18T05:30:00.000Z",
-        "end_date": "2020-10-18T19:30:00.000Z",
-        "activity_type": "1",
-        "difficulty": 2,
-        "notes": "I went to the gym today!!"
+        "notes": "Woke up thinking to continue with the social network for my final project, but changed my mind by the time I got to Spiced."
     }
 ]

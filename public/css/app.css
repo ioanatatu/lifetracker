@@ -80,17 +80,22 @@
     display: flex;
     justify-content: flex-end;
     padding-top: 28px;
-    padding-right: 270px;
-    /* background-color: pink; */
+    padding-right: 280px;
     width: 100%;
-    /* text-transform: uppercase; */
     height: 40px;
 }
-.top-bar .logout {
+.logout {
     font-size: 12px;
     font-weight: 500;
     font-family: "Poppins", sans-serif;
     outline: none;
     background: none;
     border: none;
+    cursor: pointer;
+    /* background-color: pink; */
+    height: 22px;
+    padding: 5px;
+}
+.logout:hover {
+    border-bottom: 4px solid #4dc8f1;
 }

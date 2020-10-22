@@ -164,6 +164,7 @@ app.post("/login", (req, res) => {
                             req.session.firstname = first;
                             res.json({
                                 success: true,
+                                userName: first,
                             });
                         } else {
                             res.json({
