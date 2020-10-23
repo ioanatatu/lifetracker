@@ -147,7 +147,6 @@ const ChartsComponent = ({
                                 )
                             );
                             getIntervalFromChartsComponent("currentWeek");
-                            // setInterval("current week");
                         }
                         interval = "current week";
                         setInter("current week");

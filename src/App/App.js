@@ -116,7 +116,9 @@ export default function App() {
                             )}
                         ></Route>
                     </div>
-                    <StatsDisplay></StatsDisplay>
+                    <StatsDisplay
+                        currentActivity={currentActivity}
+                    ></StatsDisplay>
                 </section>
             </div>
         </Router>

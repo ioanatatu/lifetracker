@@ -15,6 +15,12 @@
     border: 0.4px solid #1d202c;
     margin: 5px 50px;
 }
+.stats__title {
+    margin-left: 10px;
+    padding-top: 10px;
+    font-size: 14px;
+    color: whitesmoke;
+}
 .stats-card__title {
     font-size: 22px;
     font-weight: bolder;

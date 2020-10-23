@@ -71,7 +71,12 @@ function LineChart({
             ],
             yAxes: [
                 {
-                    ticks: { min: 0, max: 24, stepSize: 1, fontColor: color },
+                    ticks: {
+                        min: 0,
+                        max: 24,
+                        stepSize: 1,
+                        fontColor: color,
+                    },
                     gridLines: {
                         zeroLineColor: color,
                         display: true,

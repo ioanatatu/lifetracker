@@ -1,9 +1,11 @@
 import React from "react";
 import StatsCard from "../Components/StatCard";
-import { useSelector } from "react-redux";
+import { useSelector, useEffect } from "react-redux";
+import { changeCurrentActivity } from "../Redux/actions";
 
-const StatsDisplay = () => {
+const StatsDisplay = ({ currentActivity }) => {
     let activityData = useSelector((state) => state && state.activityData);
+    console.log("ßßßßßß", currentActivity);
     let minWakeUp = {};
     let maxGoSleep = {};
 
@@ -13,12 +15,12 @@ const StatsDisplay = () => {
     }
 
     // useEffect(() => {
-    //     if (activityData) {
-    //     }
-    // }, [activityData]);
+    // }, []);
+
     return (
         <div className="stats">
-            {minWakeUp && (
+            <div className="stats-card stats__title">Stats</div>
+            {minWakeUp && currentActivity && currentActivity != "intro" && (
                 <React.Fragment>
                     <StatsCard
                         title={minWakeUp.title}
