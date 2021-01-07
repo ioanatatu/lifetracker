@@ -33,14 +33,3 @@ const Welcome = () => {
 };
 
 export default Welcome;
-
-/* <span id="unsplash-link">
-                Photo by{" "}
-                <a href="https://unsplash.com/@curtismacnewton?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
-                    Curtis MacNewton
-                </a>{" "}
-                on{" "}
-                <a href="https://unsplash.com/s/photos/running?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
-                    Unsplash
-                </a>
-            </span> */

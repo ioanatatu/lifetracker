@@ -56,6 +56,13 @@ const activities = [
 
 export default function reducer(state = { activities: activities }, action) {
     switch (action.type) {
+        case "ADD_USER":
+            console.log("___________USER NAME IS BEING ADDED", action.user);
+            state = Object.assign({}, state, {
+                user: action.user,
+            });
+            break;
+
         case "LOAD_ACTIVITIES":
             state = Object.assign({}, state, {
                 activities: [...state.activities],

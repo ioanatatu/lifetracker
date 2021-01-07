@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "../helpers/axios";
 /*
@@ -10,20 +9,18 @@ export default function Login() {
     const { register, handleSubmit } = useForm();
 
     const onSubmit = async function (inputData) {
-        console.log("::::::", inputData);
-
         const { email, password } = inputData;
-
-        console.log("--> clicked", email, password);
 
         axios
             .post("/login", { email, password })
             .then(({ data }) => {
-                console.log(
-                    "inside /login axios data.success with data: ",
-                    data
-                );
                 if (data.success) {
+                    //////////////////////////////////////// IMPORTANT TO KEEP IN MIND //////////////////////////////
+                    // because there is a page refresh when using location.replace("/"), redux state is being overwritten
+                    // dispatch(addUser(data.userName));
+                    // find a way to pass the user name
+                    // SOLUTION: use local storage
+                    localStorage.setItem("userName", data.userName);
                     location.replace("/");
                 } else {
                     console.log("ERROR IN LOGIN");
@@ -38,14 +35,15 @@ export default function Login() {
     };
 
     return (
-        <div>
-            <h4>Welcome back!</h4>
-            <div className="form">
+        <div className="login__wrapper">
+            <h5>Welcome back!</h5>
+            <div className="form login-form__container">
                 <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="tracking-form"
+                    className="tracking-form login-form"
                 >
                     <input
+                        className="login_input"
                         name="email"
                         // value={this.state.email}
                         type="email"
@@ -55,6 +53,7 @@ export default function Login() {
                         ref={register}
                     ></input>
                     <input
+                        className="login_input"
                         name="password"
                         // value={this.state.password}
                         type="password"
@@ -64,20 +63,22 @@ export default function Login() {
                         ref={register}
                     ></input>
                     <input
-                        className="tracking-form__submit-button"
+                        className="tracking-form__submit-button login-button"
                         type="submit"
                         value="log in"
                     />
                 </form>
-                <h5>
-                    Don&apos;t have an account?{" "}
-                    <Link to="/register">Create your account</Link> and start
-                    tracking.
-                </h5>
-                <p>
-                    Forgot your password? <Link to="/reset">Reset</Link>
-                </p>
             </div>
         </div>
     );
 }
+
+// <p className="no-account">
+//     Don&apos;t have an account?
+//     <br />
+//     <Link to="/register">Create your account</Link> and start
+//     tracking.
+// </p>
+// <p>
+//     Forgot your password? <Link to="/reset">Reset</Link>
+// </p>

@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../helpers/axios";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { changeCurrentActivity } from "../Redux/actions";
 /*
  *
@@ -13,8 +13,6 @@ import ActivitiesMenu from "./ActivitiesMenu";
 import StatsDisplay from "./StatsDisplay";
 
 export default function App() {
-    const dispatch = useDispatch();
-
     const [currentInterval, setCurrentInterval] = useState("currentWeek");
 
     let currentActivity = useSelector(
@@ -46,7 +44,7 @@ export default function App() {
                             welcome
                             <br />
                             back,
-                            <br /> ioana
+                            <br /> tea
                         </p>
 
                         <Link to={"/"}>
@@ -80,7 +78,6 @@ export default function App() {
                         <div
                             className="logout"
                             onClick={() => {
-                                console.log("__LOGOUT__");
                                 logout();
                             }}
                         >

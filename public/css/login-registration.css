@@ -2,13 +2,32 @@
     border-radius: 0 3px 3px 0;
     background-color: #f0f4fd;
     background-color: #cbdadd;
-
     padding: 80px;
     padding-bottom: 50px;
+    padding-top: 100px;
     font-family: "Poppins", sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
+}
+.login__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.login-form__container {
+    width: 300px;
+}
+
+.login_input {
+    width: 300px;
+    height: 40px;
+    background: none;
+    border: none;
+    outline: none;
+    border-bottom: 3px solid black;
 }
 /* .reg-login h1 {
     font-family: "Poppins", sans-serif;
@@ -36,10 +55,17 @@
 .form {
     max-height: 80px;
 }
+.login-form {
+    margin-top: 50px;
+}
 
 .login-link,
 .login-link > a {
     font-size: 14px;
     font-family: "DM Sans", sans-serif;
     justify-self: flex-end;
+}
+.no-account {
+    width: 180px;
+    text-align: center;
 }

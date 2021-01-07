@@ -32,6 +32,13 @@ export function changeCurrentActivity(activity) {
         currentActivity: activity,
     };
 }
+export function addUser(user) {
+    console.log("___________USER NAME IS BEING ADDED", user);
+    return {
+        type: "ADD_USER",
+        user: user,
+    };
+}
 export async function getActivityData(currentActivity, interval) {
     // interval = currentWeek, lastWeek, month
     try {

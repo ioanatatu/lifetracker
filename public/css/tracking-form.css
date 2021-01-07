@@ -1,7 +1,8 @@
 .time-form-wrapper {
     background-color: rgb(148, 207, 214);
     position: absolute;
-    bottom: 170px;
+    top: 0;
+    bottom: 180px;
     padding: 10px 40px;
     text-align: center;
     min-height: calc(100vh - 170px);
@@ -45,7 +46,7 @@
     /* border-bottom: 1px solid grey; */
     font-size: 18px;
     font-weight: 400;
-    width: 160px;
+    width: 170px;
     border-bottom: 2px solid black;
 }
 .white .day {
@@ -61,8 +62,8 @@
 select,
 option,
 button {
-    font-size: 14px;
-    width: 170px;
+    font-size: 13px;
+    width: 180px;
 }
 .tracking-form input,
 select,
@@ -127,8 +128,8 @@ select {
     background: none;
     border: none;
     border-bottom: 2px solid black;
-    width: 170px;
-    font-size: 16px;
+    width: 180px;
+    font-size: 15px;
 }
 .white select {
     border-bottom: 2px solid white;
@@ -138,7 +139,7 @@ textarea {
     background: none;
     margin-top: 10px;
     margin-bottom: 20px;
-    width: 170px;
+    width: 180px;
     padding: 3px;
 }
 

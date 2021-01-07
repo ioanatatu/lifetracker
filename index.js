@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const cookieSessionMiddleware = cookieSession({
-    secret: `I'm always angry.`,
+    secret: `This is a secret.`,
     maxAge: 1000 * 60 * 60 * 24 * 90,
 });
 
@@ -125,6 +125,7 @@ app.post("/register", (req, res) => {
                     req.session.firstname = first;
                     res.json({
                         success: true,
+                        userName: first,
                     });
                 })
                 .catch((e) => {
