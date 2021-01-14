@@ -211,7 +211,7 @@ app.get("*", function (req, res) {
         ? res.redirect("/welcome")
         : res.sendFile(__dirname + "/index.html");
 });
-app.listen(7070, function () {
+app.listen(process.env.PORT || 7070, function () {
     console.log("> ✅  is listening");
 });
 /*
