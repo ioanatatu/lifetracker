@@ -7,9 +7,7 @@ const io = require("socket.io")(server, { origins: "localhost:7070" }); // herok
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
-const path = require("path");
 const csurf = require("csurf");
-const uidSafe = require("uid-safe");
 const db = require("./__server-utilities/db");
 const { compare, hash } = require("./__server-utilities/bc");
 // const s3 = require("./__server-utilities/s3"); // for uploading images on S3
@@ -24,7 +22,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 const cookieSessionMiddleware = cookieSession({
-    secret: `This is a secret.`,
+    secret:
+        process.env.SESSION_SECRET ||
+        require("./__server-utilities/secrets.json").sessionSecret,
     maxAge: 1000 * 60 * 60 * 24 * 90,
 });
 

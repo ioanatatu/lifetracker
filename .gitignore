@@ -1,4 +1,5 @@
 node_modules
 .DS_Store
-secrets.json
+__server-utilities/secrets.json
 package-lock.json
+
