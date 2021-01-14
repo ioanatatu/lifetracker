@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { newActivityEntry } from "../Redux/actions";
@@ -21,7 +21,6 @@ const TrackingForm = ({ currentInterval }) => {
     const currentActivity = useSelector(
         (state) => state && state.currentActivity
     );
-    console.log("currentActivity from TrackingForm ", currentActivity);
 
     getDefaultTime();
 
@@ -39,7 +38,6 @@ const TrackingForm = ({ currentInterval }) => {
     }, []);
 
     const onSubmit = async function (inputData) {
-        console.log("::::::", inputData);
         inputData.activity = currentActivity.name;
         inputData.interval = currentInterval;
 
@@ -49,10 +47,6 @@ const TrackingForm = ({ currentInterval }) => {
                 const { data } = await axios.post(
                     "/api/add-activity",
                     inputData
-                );
-                console.log(
-                    ":::::::data from db in TrackigForm onSubmit",
-                    data
                 );
                 if (Object.keys(data).length !== 0) {
                     dispatch(newActivityEntry(data));
@@ -96,8 +90,8 @@ const TrackingForm = ({ currentInterval }) => {
                     <input
                         type="date"
                         name="date"
-                        min="2020-01-01"
-                        max="2020-12-31"
+                        min="2020-11-01"
+                        max="2021-12-31"
                         ref={register}
                         defaultValue={getDefaultDate()}
                     ></input>

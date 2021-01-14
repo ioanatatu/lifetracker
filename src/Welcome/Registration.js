@@ -14,7 +14,10 @@ export default function Registration() {
 
         try {
             const { data } = await axios.post("/register", inputData);
-            if (data.success) location.replace("/");
+            if (data.success) {
+                localStorage.setItem("userName", data.userName);
+                location.replace("/");
+            }
         } catch (error) {
             console.log(error);
         }

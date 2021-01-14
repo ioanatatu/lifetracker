@@ -50,7 +50,10 @@ export default function App() {
                             welcome
                             <br />
                             back,
-                            <br /> {userName ? userName : "..."}
+                            <br />{" "}
+                            <span style={{ textTransform: "capitalize" }}>
+                                {userName ? userName : "..."}
+                            </span>
                         </p>
 
                         <Link to={"/"}>
