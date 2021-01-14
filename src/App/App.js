@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../helpers/axios";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { changeCurrentActivity } from "../Redux/actions";
 /*
  *
@@ -13,13 +13,19 @@ import ActivitiesMenu from "./ActivitiesMenu";
 import StatsDisplay from "./StatsDisplay";
 
 export default function App() {
+    const dispatch = useDispatch();
+
     const [currentInterval, setCurrentInterval] = useState("currentWeek");
+    const [userName, setUserName] = useState("");
 
     let currentActivity = useSelector(
         (state) => state && state.currentActivity
     );
 
-    useEffect(() => {}, []);
+    useEffect(() => {
+        const user = localStorage.getItem("userName");
+        setUserName(user);
+    }, []);
 
     const logout = () => {
         axios
@@ -44,7 +50,7 @@ export default function App() {
                             welcome
                             <br />
                             back,
-                            <br /> tea
+                            <br /> {userName ? userName : "..."}
                         </p>
 
                         <Link to={"/"}>

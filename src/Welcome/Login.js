@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "../helpers/axios";
+import { Link } from "react-router-dom";
 /*
  *
  * components
@@ -37,7 +38,17 @@ export default function Login() {
     return (
         <div className="login__wrapper">
             <h5>Welcome back!</h5>
-            <div className="form login-form__container">
+            <p className="explanation">
+                This is a project that is based on entering data on a longer
+                period of time. You can, therefore, create your own account and
+                enter data, or use the demo user and see data that has already
+                been tracked: <br />
+                <br />
+                user@usersson.com
+                <br />
+                usersson
+            </p>
+            <div className="login-form__container">
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="tracking-form login-form"
@@ -69,16 +80,14 @@ export default function Login() {
                     />
                 </form>
             </div>
+            <span style={{ textAlign: "center" }}>
+                <h5 className="login-link">Don&apos;t have an account?</h5>
+                <br />
+                <div className="login-link">
+                    <Link to="/register">Create your account</Link> and start
+                    tracking
+                </div>
+            </span>
         </div>
     );
 }
-
-// <p className="no-account">
-//     Don&apos;t have an account?
-//     <br />
-//     <Link to="/register">Create your account</Link> and start
-//     tracking.
-// </p>
-// <p>
-//     Forgot your password? <Link to="/reset">Reset</Link>
-// </p>

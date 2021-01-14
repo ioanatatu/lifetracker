@@ -21,11 +21,15 @@ export default function Registration() {
     };
 
     return (
-        <React.Fragment>
-            <h1>First time here? Join us!</h1>
+        <div className="login__wrapper">
+            <h5>First time here? Join us!</h5>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="tracking-form login-form"
+            >
                 <input
+                    className="login_input"
                     type="text"
                     name="first"
                     placeholder="first name"
@@ -34,6 +38,7 @@ export default function Registration() {
                     required
                 ></input>
                 <input
+                    className="login_input"
                     type="text"
                     name="last"
                     placeholder="last name"
@@ -42,6 +47,7 @@ export default function Registration() {
                     required
                 ></input>
                 <input
+                    className="login_input"
                     type="email"
                     name="email"
                     placeholder="email"
@@ -50,6 +56,7 @@ export default function Registration() {
                     required
                 ></input>
                 <input
+                    className="login_input"
                     type="password"
                     name="password"
                     placeholder="password"
@@ -66,13 +73,19 @@ export default function Registration() {
                     name="_csrf"
                     // value={this.state.csrfToken}
                 />
-                <input type="submit" />
+                <input
+                    type="submit"
+                    className="tracking-form__submit-button login-button"
+                />
             </form>
-
-            <h5 className="login-link">
-                Already a member? <Link to="/"> Login</Link>
-            </h5>
-        </React.Fragment>
+            <span style={{ display: "flex" }}>
+                <h5 className="login-link">Already a member? </h5>
+                <br />
+                <div className="login-link">
+                    <Link to="/"> Login</Link>
+                </div>
+            </span>
+        </div>
     );
 }
 

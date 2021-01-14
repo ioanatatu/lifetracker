@@ -14,15 +14,13 @@
     border-radius: 0;
     border-bottom: 3px solid black;
     margin: 5px 0;
+    font-size: 16px;
 }
 .form-input:focus {
     outline: none;
 }
 input {
-    caret-color: magenta;
-}
-input[type="password"] {
-    /* letter-spacing: 0.4em; */
+    caret-color: #4b54e1;
 }
 input::placeholder {
     letter-spacing: 0.1em;

@@ -13,6 +13,7 @@
 }
 .login__wrapper {
     display: flex;
+    height: 100%;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -20,7 +21,11 @@
 .login-form__container {
     width: 300px;
 }
-
+.explanation {
+    font-size: 14px !important;
+    text-align: center;
+    color: rgba(108, 132, 135, 0.789);
+}
 .login_input {
     width: 300px;
     height: 40px;
@@ -28,6 +33,12 @@
     border: none;
     outline: none;
     border-bottom: 3px solid black;
+}
+.login_input::placeholder {
+    font-family: "DM Sans", sans-serif;
+    font-size: 16px;
+    color: rgba(108, 132, 135, 0.789);
+    font-weight: 100;
 }
 /* .reg-login h1 {
     font-family: "Poppins", sans-serif;
@@ -52,20 +63,25 @@
     background-color: red;
     background-color: #e5e8f0;
 }
-.form {
-    max-height: 80px;
+.login-link {
+    display: inline;
+    text-align: center;
 }
-.login-form {
-    margin-top: 50px;
-}
-
 .login-link,
 .login-link > a {
     font-size: 14px;
     font-family: "DM Sans", sans-serif;
-    justify-self: flex-end;
 }
 .no-account {
     width: 180px;
     text-align: center;
+}
+
+.login-link a {
+    transform: color 0.3s linear;
+    margin-left: 10px;
+}
+.login-link a:hover {
+    color: #009bce;
+    transform: color 0.3s linear;
 }

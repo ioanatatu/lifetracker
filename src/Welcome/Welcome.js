@@ -21,6 +21,7 @@ const Welcome = () => {
                     Journal and visualize your daily routines. Share your
                     progress with your doctor, trainer or friends.
                 </h4>
+                <p></p>
             </div>
             <div className="reg-login">
                 <HashRouter>
