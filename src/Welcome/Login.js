@@ -41,12 +41,12 @@ export default function Login() {
             <p className="explanation">
                 This is a project that is based on entering data on a longer
                 period of time. You can, therefore, create your own account and
-                enter data, or use the demo user and see data that has already
+                enter data, or use the demo user to see data that has already
                 been tracked: <br />
                 <br />
-                user@usersson.com
+                user: user@usersson.com
                 <br />
-                usersson
+                password: usersson
             </p>
             <div className="login-form__container">
                 <form

@@ -2,18 +2,12 @@ const express = require("express");
 const app = express();
 const fs = require("fs");
 const compression = require("compression");
-const server = require("http").Server(app);
-const io = require("socket.io")(server, { origins: "localhost:7070" }); // heroku link if online
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
 const csurf = require("csurf");
 const db = require("./__server-utilities/db");
 const { compare, hash } = require("./__server-utilities/bc");
-// const s3 = require("./__server-utilities/s3"); // for uploading images on S3
-// const multer = require("multer");
-// const cryptoRandomString = require("crypto-random-string");
-// const ses = require("./__server-utilities/ses"); // for sending an email to the assigned spiced address
 
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -25,13 +19,11 @@ const cookieSessionMiddleware = cookieSession({
     secret:
         process.env.SESSION_SECRET ||
         require("./__server-utilities/secrets.json").sessionSecret,
-    maxAge: 1000 * 60 * 60 * 24 * 90,
+    maxAge: 1000 * 60 * 60 * 24, // one day
 });
 
 app.use(cookieSessionMiddleware);
-io.use(function (socket, next) {
-    cookieSessionMiddleware(socket.request, socket.request.res, next);
-});
+
 app.use(csurf());
 app.use((req, res, next) => {
     res.cookie("mytoken", req.csrfToken());
@@ -103,10 +95,7 @@ app.get("/api/activity-data", async (req, res) => {
             interval
         );
         // console.log(rows);
-        fs.writeFileSync(
-            __dirname + "/month.json",
-            JSON.stringify(rows, null, 4)
-        );
+        fs.writeFileSync(__dirname + "/month.json", JSON.stringify(rows, null, 4));
         res.json({ activityData: rows });
     } catch (error) {
         console.log(error);
@@ -116,6 +105,7 @@ app.get("/api/activity-data", async (req, res) => {
 // ------------------------------------------------------- REGISTER - LOGIN - LOGOUT
 app.post("/register", (req, res) => {
     const { first, last, email, password } = req.body;
+    console.log(first, last, email, password);
 
     hash(password)
         .then((hashedPass) => {
@@ -130,8 +120,7 @@ app.post("/register", (req, res) => {
                 })
                 .catch((e) => {
                     console.log("error coder in hash(pass)", e.code);
-                    if (e.code == "23505")
-                        console.log("--> email already exists");
+                    if (e.code == "23505") console.log("--> email already exists");
                     return res.json({
                         success: false,
                     });
@@ -148,10 +137,7 @@ app.post("/login", (req, res) => {
 
     db.getUser(email)
         .then((result) => {
-            console.log(
-                "--> result.rows in db.getUser in post /login",
-                result.rows
-            );
+            console.log("--> result.rows in db.getUser in post /login", result.rows);
 
             if (result.rows[0]) {
                 const { id, first, last, pass } = result.rows[0];
@@ -183,8 +169,7 @@ app.post("/login", (req, res) => {
             } else {
                 res.json({
                     success: false,
-                    message:
-                        "sth went wrong in result.rows from the db request",
+                    message: "sth went wrong in result.rows from the db request",
                 });
             }
         })
@@ -202,7 +187,7 @@ app.get("/logout", (req, res) => {
     res.redirect("/welcome");
 });
 // ------------------------------------------------------- WELCOME - checks if user is logged in
-app.get("/welcome", (req, res) => {
+app.get("/welcome", (_, res) => {
     res.sendFile(__dirname + "/index.html");
 });
 app.get("*", function (req, res) {
@@ -212,7 +197,7 @@ app.get("*", function (req, res) {
         : res.sendFile(__dirname + "/index.html");
 });
 app.listen(process.env.PORT || 7070, function () {
-    console.log("> ✅  is listening");
+    console.info("> ✅ is listening");
 });
 /*
  *
@@ -233,9 +218,6 @@ function checkIfInProductionMode() {
             })
         );
     } else {
-        // if we are in production we send this file which will be put together by
-        app.use("/bundle.js", (req, res) =>
-            res.sendFile(`${__dirname}/bundle.js`)
-        );
+        app.use("/bundle.js", (_, res) => res.sendFile(`${__dirname}/bundle.js`));
     }
 }
